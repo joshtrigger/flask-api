@@ -7,4 +7,4 @@ python:
 
 #Run tests
 script:
-- pytest --cov=
+- pytest --cov=app
