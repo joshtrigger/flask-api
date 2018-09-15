@@ -16,10 +16,10 @@ class AppTestCase(unittest.TestCase):
 
     def test_post(self):
         response = self.client.post('/api/v1/orders', content_type='appliation/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
     def test_put(self):
-        response = self.client.post('/api/v1/orders/<int:orderId>', content_type='appliation/json')
+        response = self.client.post('/api/v1/orders/2', content_type='appliation/json')
         self.assertEqual(response.status_code, 201)
 
     def test_delete(self):
