@@ -9,4 +9,4 @@ install:
 
 #Run tests
 script:
-  - pytest --cov=app
+  - nosetests --with-coverage --cover-package=app
