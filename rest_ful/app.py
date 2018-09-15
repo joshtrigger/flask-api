@@ -14,18 +14,7 @@ class Orders(Resource):
 
     #Place new order
     def post(self):
-        data = request.get_json()
-        if next(filter(lambda x:x['orderId'], orders), None):
-            return {'message': "Order already exists."}, 400
-
-        order = {'orderId':data['orderId'], 'items':[{
-            'name':data['name'],
-            'price':data['price']
-        }],
-        'state': False}
-
-        orders.append(order)
-        return order, 201
+        pass
 
 api.add_resource(Orders, '/api/v1/orders')
 
