@@ -1,11 +1,11 @@
-#language: python
-
+language: python
 python:
   - "3.6.2"
 
 #Install dependecies
 install:
   - pip install -r requirements.txt
+  - pip install nose
 
 #Run tests
 script:
