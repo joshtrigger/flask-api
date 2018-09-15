@@ -55,9 +55,7 @@ class Order(Resource):
 
     #Deletes an order from order list
     def delete(self, orderId):
-        global orders
-        orders = list(filter(lambda x:x['orderId'] != orderId, orders))
-        return {'message': 'order has been deleted'}
+        pass
         
          
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
