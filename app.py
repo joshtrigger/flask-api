@@ -1,4 +1,5 @@
 from flask import Flask, request, abort, jsonify
+import flask_restful
 from flask_restful import Resource, Api
 
 app = Flask(__name__)

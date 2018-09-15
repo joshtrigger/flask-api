@@ -20,11 +20,11 @@ class AppTestCase(unittest.TestCase):
 
     def test_put(self):
         response = self.client.post('/api/v1/orders/2', content_type='appliation/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 405)
 
     def test_delete(self):
         response = self.client.post('/api/v1/orders/<int:orderId>', content_type='appliation/json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main()
