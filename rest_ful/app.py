@@ -37,21 +37,7 @@ class Order(Resource):
 
     #Update order status and creates new order
     def put(self, orderId):
-        data = request.get_json()
-        order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
-        if order is None:
-            order = {'orderId':data['orderId'], 'items':[{
-            'name':data['name'],
-            'price':data['price']
-        }],
-        'state': False}
-
-            orders.append(order)
-            
-        else:
-            order.update(data)
-
-        return order, 201
+        pass
 
     #Deletes an order from order list
     def delete(self, orderId):
