@@ -1,5 +1,4 @@
 from flask import Flask, request, abort, jsonify
-import flask_restful
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
@@ -35,4 +34,5 @@ class Order(Resource):
          
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
    
-app.run(port=5000) #Runs the app
+if __name__ == '__main__':
+    app.run(debug=True) #Runs the app

@@ -5,8 +5,8 @@ python:
 #Install dependecies
 install:
   - pip install -r requirements.txt
-  - pip install nose
+  - pip install unittest
 
 #Run tests
 script:
-  - nosetest
+  - unittest
