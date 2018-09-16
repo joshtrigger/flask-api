@@ -5,7 +5,7 @@ python:
 #Install dependecies
 install:
   - pip install -r requirements.txt
-  - pip install unittest
+  
 
 #Run tests
 script:
