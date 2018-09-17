@@ -9,5 +9,5 @@ install:
 #Run tests
 script:
   - python -m unittest
-  - coverage run
+  - coverage run test_app.py
   - coverage report
