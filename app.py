@@ -5,25 +5,26 @@ app = Flask(__name__)
 api = Api(app)
 
 orders = []
-
-
-class Orders(Resource):
-    #Place new order
-    def post(self):
+class Order(Resource):
+    #Update order status and creates new order
+    def put(self, orderId):
         data = request.get_json()
-        if next(filter(lambda x:x['orderId'], orders), None):
-            return {'message': "Order already exists."}, 400
-
-        order = {'orderId':data['orderId'], 'items':[{
+        order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
+        if order is None:
+            order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
         'state': False}
 
-        orders.append(order)
-        return order, 201
+            orders.append(order)
+            
+        else:
+            order.update(data)
 
-api.add_resource(Orders, '/api/v1/orders')
+        return order, 201
+        
+api.add_resource(Order, '/api/v1/orders/<int:orderId>')
    
 if __name__ == '__main__':
     app.run(debug=True) #Runs the app
