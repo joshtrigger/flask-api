@@ -5,13 +5,24 @@ app = Flask(__name__)
 api = Api(app)
 
 orders = []
-
 class Order(Resource):
-    #Deletes an order from order list
-    def delete(self, orderId):
-        global orders
-        orders = list(filter(lambda x:x['orderId'] != orderId, orders))
-        return {'message': 'order has been deleted'}
+    #Update order status and creates new order
+    def put(self, orderId):
+        data = request.get_json()
+        order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
+        if order is None:
+            order = {'orderId':data['orderId'], 'items':[{
+            'name':data['name'],
+            'price':data['price']
+        }],
+        'state': False}
+
+            orders.append(order)
+            
+        else:
+            order.update(data)
+
+        return order, 201
         
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
    
