@@ -11,7 +11,7 @@ class AppTestCase(unittest.TestCase):
         self.client = None
 
     def test_post(self):
-        response = self.client.post('/api/v1/orders', content_type='application/json')
+        response = self.client.delete('/api/v1/orders', content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
 if __name__ == '__main__':
