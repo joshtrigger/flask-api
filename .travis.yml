@@ -5,9 +5,10 @@ python:
 #Install dependecies
 install:
   - pip install -r requirements.txt
-  - pip install coverage
+  - pip install coveralls
 #Run tests
 script:
-  - python -m unittest
-  - coverage run test_app.py
-  - coverage report
+  - python -m unittest --with-coverage
+
+after_success:
+  - coveralls
