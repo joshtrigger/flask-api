@@ -12,7 +12,7 @@ class AppTestCase(unittest.TestCase):
 
     def test_post(self):
         response = self.client.delete('/api/v1/orders', content_type='application/json')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main()
