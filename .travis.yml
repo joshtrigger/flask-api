@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6.2"
+
+#Install dependecies
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+#Run tests
+script:
+  - python -m unittest
+  - coverage run test_app.py
+  - coverage report
