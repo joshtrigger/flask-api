@@ -1,5 +1,5 @@
 import os
-from app import app, Orders, Order
+from app import app
 import unittest
 
 
