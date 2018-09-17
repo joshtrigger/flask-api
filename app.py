@@ -6,14 +6,13 @@ api = Api(app)
 
 orders = []
 
-
-class Orders(Resource):
-    #Gets all orders
-    def get(self):
-       return orders
-
-api.add_resource(Orders, '/api/v1/orders')
+class Order(Resource):
+    #Fetch a specific order
+    def get(self, orderId):
+       order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
+       return order, 200 if order else 404
+      
+api.add_resource(Order, '/api/v1/orders/<int:orderId>')
    
 if __name__ == '__main__':
     app.run(debug=True) #Runs the app
-
