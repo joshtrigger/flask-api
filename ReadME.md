@@ -12,13 +12,15 @@
 
 # Flask API
 This API was solely developed in python using the python flask framework
+
 ## Requirements
     - Python
     - Text Editor e.g Vscode, SublimeText etc
     - Pytest
-    
+
 ## Installation and setup
 Run the following in your command line
+
     - pip install flask
     - pip install virtualenv
     - virtual venv
