@@ -1,9 +1,7 @@
-pyyaml-3.13/*
 .vscode/*
 __pycache__/*
 .pytest_cache/*
 flask/*
 venv/*
 tests/*
-
-
+PyYAML-3.13/*
