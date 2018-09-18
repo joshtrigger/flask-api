@@ -30,7 +30,8 @@ api.add_resource(Orders, '/api/v1/orders')
 class Order(Resource):
     #Fetch a specific order
     def get(self, orderId):
-       pass
+       order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
+       return order, 200 if order else 404
 
     #Update order status and creates new order
     def put(self, orderId):
