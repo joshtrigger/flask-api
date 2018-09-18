@@ -12,13 +12,20 @@
 
 # Flask API
 This API was solely developed in python using the python flask framework
-
+## Requirements
+    - Python
+    - Text Editor e.g Vscode, SublimeText etc
+    - Pytest
+    
 ## Installation and setup
+Run the following in your command line
     - pip install flask
     - pip install virtualenv
     - virtual venv
     - ./venv/Scripts/activate.bat or cd ...\venv\Sripts>activate 
     - pip install Flask-RESTful
+
+To deactivate the virtual enviroment run `deactivate`
 
 ## Testing
 Testing of the API was done using postman, you can get it [here](https://www.getpostman.com/) 
