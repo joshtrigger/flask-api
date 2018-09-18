@@ -3,4 +3,5 @@ __pycache__/*
 .pytest_cache/*
 flask/*
 venv/*
+PyYALM-3.13/*
 
