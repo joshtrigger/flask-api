@@ -8,7 +8,7 @@ orders = []
 class Orders(Resource):
     #Gets all orders
     def get(self):
-        return orders
+        return orders #returns order
 
     #Place new order
     def post(self):
