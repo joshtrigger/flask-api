@@ -5,25 +5,31 @@ app = Flask(__name__)
 api = Api(app)
 
 orders = []
+class Orders(Resource):
+    #Gets all orders
+    def get(self):
+       pass
+
+    #Place new order
+    def post(self):
+       pass
+
+api.add_resource(Orders, '/api/v1/orders')
+
 class Order(Resource):
+    #Fetch a specific order
+    def get(self, orderId):
+       pass
+
     #Update order status and creates new order
     def put(self, orderId):
-        data = request.get_json()
-        order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
-        if order is None:
-            order = {'orderId':data['orderId'], 'items':[{
-            'name':data['name'],
-            'price':data['price']
-        }],
-        'state': False}
+        pass
 
-            orders.append(order)
-            
-        else:
-            order.update(data)
-
-        return order, 201
+    #Deletes an order from order list
+    def delete(self, orderId):
+        pass
         
+         
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
    
 if __name__ == '__main__':
