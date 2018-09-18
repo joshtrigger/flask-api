@@ -17,7 +17,7 @@ def home():
     return jsonify({'MY API': 'This is my falsk api!!!'})
 
 class Orders(Resource):
-    @jwt_required()
+    #@jwt_required()
     #Gets all orders
     def get(self):
         return orders 
@@ -40,7 +40,7 @@ class Orders(Resource):
 api.add_resource(Orders, '/api/v1/orders')
 
 class Order(Resource):
-    @jwt_required()
+    #@jwt_required()
     #Fetch a specific order
     def get(self, orderId):
        order = next(filter(lambda x:x['orderId'] == orderId, orders), None)
