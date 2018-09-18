@@ -10,8 +10,7 @@ install:
 #Run tests
 script:
   - python -m unittest
-  - coverage
-  - coveralls
+  - pip install coveralls
 
 after_success:
   - coveralls
