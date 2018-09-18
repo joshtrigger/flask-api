@@ -1,7 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api
 from flask_jwt import JWT, jwt_required
-
+from tests import test_app
 from security import authenticate, identity
 
 app = Flask(__name__)
