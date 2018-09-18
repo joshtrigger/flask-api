@@ -16,15 +16,15 @@ class AppTestCase(unittest.TestCase):
 
     def test_post(self):
         response = self.client.post('/api/v1/orders', content_type='application/json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
 
     def test_put(self):
         response = self.client.put('/api/v1/orders', content_type='application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 405)
 
     def test_delete(self):
         response = self.client.delete('/api/v1/orders', content_type='application/json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 405)
 
 
 if __name__ == '__main__':
