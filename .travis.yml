@@ -9,6 +9,8 @@ install:
 #Run tests
 script:
   - python -m unittest
+  - coverage
+  - coveralls
 
 after_success:
   - coveralls
