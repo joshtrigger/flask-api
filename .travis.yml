@@ -9,7 +9,7 @@ install:
   
 #Run tests
 script:
-  - python -m unittest
+  - python -m unittest test_app.py
   - pip install coveralls
 
 after_success:
