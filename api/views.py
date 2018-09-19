@@ -9,8 +9,13 @@ app = Flask(__name__)
 app.secret_key = 'josh123'
 api = Api(app)
 
-#jwt = JWT(authenticate, identity) #/auth
+#jwt = JWT(authenticate, identity) /auth
 
+@app.route('/')
+def home():
+    return jsonify({'Welcome: Hi there this is my very first Flask-API applcation'})
+
+    
 my_orders = myOrder()
 
 class Orders(Resource):
