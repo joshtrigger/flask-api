@@ -11,14 +11,14 @@ class myOrder(object):
         if next(filter(lambda x:x['orderId'], self.orders), None):
             return {'message': "Order already exists."}, 400
 
-        self.order = {'orderId':data['orderId'], 'items':[{
+        order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
         'status': False} 
 
-        self.orders.append(self.order)
-        return self.order, 201
+        self.orders.append(order)
+        return order, 201
 
     def get_all_orders(self):
         return self.orders
@@ -30,7 +30,7 @@ class myOrder(object):
 
     def update_order_status(self, orderId):
         data = request.get_json()
-        order = next(filter(lambda x:x['orderId'] == orderId, self.orders))
+        order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
         if order is None:
             order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
@@ -39,10 +39,8 @@ class myOrder(object):
         'state': False}
 
             self.orders.append(order)
-            
         else:
             order.update(data)
-
         return order, 201
 
     def delete_order(self, orderId):
