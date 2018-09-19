@@ -6,23 +6,9 @@ class myOrder(object):
     parser.add_argument('name', type=str, required=True, help='field cannot be blank')
     parser.add_argument('price', type=int, required=True, help='field cannot be blank')
 
-    
-
     def __init__(self):
 		#Initialization
         self.orders = []
-
-    def create_order(self, data):
-
-        data = myOrder.parser.parse_args()
-
-        order = {'orderId':data['orderId'], 'items':[{
-            'name':data['name'],
-            'price':data['price']
-        }],
-        'state': False}
-
-        return order
 
     def place_new_order(self):
         if next(filter(lambda x:x['orderId'], self.orders), None):
