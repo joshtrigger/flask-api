@@ -10,13 +10,12 @@ class myOrder(object):
         data = request.get_json()
         if next(filter(lambda x:x['orderId'], self.orders), None):
             return {'message': "Order already exists."}, 400
-
         order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
-        'status': False} 
-
+        'state': False}
+    
         self.orders.append(order)
         return order, 201
 
@@ -37,13 +36,12 @@ class myOrder(object):
             'price':data['price']
         }],
         'state': False}
-
+        
             self.orders.append(order)
         else:
             order.update(data)
         return order, 201
 
     def delete_order(self, orderId):
-        global orders
-        orders = list(filter(lambda x:x['orderId'] != orderId, self.orders))
+        self.orders = list(filter(lambda x:x['orderId'] != orderId, self.orders))
         return {'message': 'order has been deleted'}
