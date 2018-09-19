@@ -6,7 +6,11 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
-  
+
+addons:
+  code_climate:
+    repo_token:
+      secure: e052f09f474b806e4a209b9ac08dc898d7ed5e8981fb980fb6a4ad9e646d2194
 #Run tests
 script:
   - python -m unittest
