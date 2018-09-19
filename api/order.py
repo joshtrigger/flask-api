@@ -20,7 +20,7 @@ class myOrder(object):
             'name':data['name'],
             'price':data['price']
         }],
-        'state': False}
+        }
     
         self.orders.append(order)
         return order, 201
