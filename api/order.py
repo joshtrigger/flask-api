@@ -29,18 +29,18 @@ class myOrder(object):
 
     def update_order_status(self, orderId):
         data = request.get_json()
-        order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
-        if order is None:
-            order = {'orderId':data['orderId'], 'items':[{
+        self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
+        if self.order is None:
+            self.order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
         'state': False}
         
-            self.orders.append(order)
+            self.orders.append(self.order)
         else:
-            order.update(data)
-        return order, 201
+            self.order.update(data)
+        return self.order, 201
 
     def delete_order(self, orderId):
         self.orders = list(filter(lambda x:x['orderId'] != orderId, self.orders))
