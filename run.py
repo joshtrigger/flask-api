@@ -1,5 +1,5 @@
 from api.views import app
-from flask import jsonify
+from flask import Flask, jsonify
 
 @app.route('/', methods=['GET'])
 def home():
