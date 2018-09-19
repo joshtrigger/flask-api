@@ -30,15 +30,15 @@ class myOrder(object):
 
     
     def fetch_specific_order(self, orderId):
-        order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
-        return order, 200 if order else 404
+        self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
+        return self.order, 200 if self.order else 404
 
     def update_order_status(self, orderId):
-        self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
+        order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
 
         data = myOrder.parser.parse_args()
 
-        if self.order is None:
+        if order is None:
             order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
