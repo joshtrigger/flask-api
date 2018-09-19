@@ -32,7 +32,7 @@ class myOrder(object):
         data = request.get_json()
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders))
         if order is None:
-            self.order = {'orderId':data['orderId'], 'items':[{
+            order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
