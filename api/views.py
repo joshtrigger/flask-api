@@ -11,7 +11,7 @@ api = Api(app)
 
 #jwt = JWT(authenticate, identity) /auth
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     return jsonify({'Welcome: Hi there this is my very first Flask-API applcation'})
 
