@@ -23,14 +23,14 @@ class myOrder(object):
     def get_all_orders(self):
         return self.orders
 
-
+    
     def fetch_specific_order(self, orderId):
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
         return order, 200 if order else 404
 
     def update_order_status(self, orderId):
         data = request.get_json()
-        order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
+        order = next(filter(lambda x:x['orderId'] == orderId, self.orders))
         if order is None:
             order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
