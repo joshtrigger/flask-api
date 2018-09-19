@@ -16,14 +16,14 @@ class myOrder(object):
 
         data = myOrder.parser.parse_args()
         
-        self.order = {'orderId':data['orderId'], 'items':[{
+        order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
         }],
         'state': False}
     
-        self.orders.append(self.order)
-        return self.order, 201
+        self.orders.append(order)
+        return order, 201
 
     def get_all_orders(self):
         return self.orders
