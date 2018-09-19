@@ -1,15 +1,21 @@
-from api.views import request
+from api.views import request, reqparse
 
 class myOrder(object):
-    
+    parser = reqparse.RequestParser()
+    parser.add_argument('orderId', type=int, required=True, help='field cannot be blank')
+    parser.add_argument('name', type=str, required=True, help='field cannot be blank')
+    parser.add_argument('price', type=int, required=True, help='field cannot be blank')
+
     def __init__(self):
 		#Initialization
         self.orders = []
 
     def place_new_order(self):
-        data = request.get_json()
         if next(filter(lambda x:x['orderId'], self.orders), None):
             return {'message': "Order already exists."}, 400
+
+        data = myOrder.parser.parse_args()
+        
         self.order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
             'price':data['price']
@@ -28,8 +34,10 @@ class myOrder(object):
         return order, 200 if order else 404
 
     def update_order_status(self, orderId):
-        data = request.get_json()
         self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
+
+        data = myOrder.parser.parse_args()
+
         if self.order is None:
             self.order = {'orderId':data['orderId'], 'items':[{
             'name':data['name'],
