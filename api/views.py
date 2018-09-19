@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api
-from flask_jwt import JWT, jwt_required
+#from flask_jwt import JWT, jwt_required
 from api.order import myOrder
 
 from security import authenticate, identity
@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'josh123'
 api = Api(app)
 
-jwt = JWT(authenticate, identity) #/auth
+#jwt = JWT(authenticate, identity) #/auth
 
 my_orders = myOrder()
 
