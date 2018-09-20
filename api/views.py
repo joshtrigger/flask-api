@@ -11,7 +11,7 @@ api = Api(app)
 
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({'Welcome: Hi there this is my very first Flask-API applcation'})
+    return jsonify ({'Welcome': 'Hi there this is my very first Flask-API applcation'})
 
 
 my_orders = myOrder()
