@@ -1,7 +1,7 @@
 <!-- Travis CI readMe badge -->
 [![Build Status](https://travis-ci.org/joshtrigger/flask-api.svg?branch=develop)](https://travis-ci.org/joshtrigger/flask-api) 
 
-<!-- Coveralls readMe badge -->
+<!-- Coveralls -->
 [![Coverage Status](https://coveralls.io/repos/github/joshtrigger/flask-api/badge.svg?branch=develop)](https://coveralls.io/github/joshtrigger/flask-api?branch=develop)
 
 <!-- Code climate maintainability -->
