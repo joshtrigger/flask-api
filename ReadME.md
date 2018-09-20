@@ -32,3 +32,9 @@ To deactivate the virtual enviroment run `deactivate`
 ## Testing
 Testing of the API was done using postman, you can get it [here](https://www.getpostman.com/) 
 
+## Hosting API on heroku
+First and foremost, ensure that your github repository is connected to heroku. Then add the required files that will enable heroku host your application. Now you can safely deploy your API to heroku. Check out mine [here](https://my-fast-food-api.herokuapp.com)
+
+
+
+
