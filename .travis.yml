@@ -8,7 +8,7 @@ install:
 
 #Run tests
 script:
-  - pytest 
+  - pytest --cov
 
 after_success:
   - coveralls
