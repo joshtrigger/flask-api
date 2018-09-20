@@ -3,8 +3,6 @@ from flask_restful import Resource, Api, reqparse
 #from flask_jwt import JWT, jwt_required
 from api.order import myOrder
 
-from security import authenticate, identity
-
 app = Flask(__name__)
 app.secret_key = 'josh123'
 api = Api(app)
