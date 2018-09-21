@@ -22,7 +22,7 @@ class AppTestCase(unittest.TestCase):
 
     def test_post(self):
         response = self.tester.post('/api/v1/orders', data = dict(), content_type='application/json')
-        self.assertTrue(200, response.status_code)
+        self.assertTrue(201, response.status_code)
 
     def test_put(self):
         response = self.tester.put('/api/v1/orders/2', data = dict(), content_type='application/json')
