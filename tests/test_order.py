@@ -2,6 +2,13 @@ import unittest
 from api import order
 
 class OrderTest(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+        
     def test_place_new_order(self):
         pass
 
