@@ -25,7 +25,7 @@ class AppTestCase(unittest.TestCase):
         self.assertTrue(200, response.status_code)
 
     def test_put(self):
-        response = self.tester.put('/api/v1/orders/2', data = dict(), content_type='application/json')
+        response = self.tester.put('/api/v1/orders/1', data = dict(), content_type='application/json')
         self.assertEqual(200, response.status_code)
 
     def test_delete(self):
