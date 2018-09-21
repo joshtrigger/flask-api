@@ -4,7 +4,8 @@ from api import order
 class OrderTest(unittest.TestCase):
 
     def setUp(self):
-        self.Order = {'orderId':1, 'name': 'Name', 'price':2500}
+        self.Order = {}
+        self.Orders = []
 
     def tearDown(self):
         pass
@@ -16,8 +17,7 @@ class OrderTest(unittest.TestCase):
         pass
 
     def test_fetch_specific_order(self):
-        result = self.Order
-        self.assertTrue(result)
+        pass
 
     def test_update_order_status(self):
         pass

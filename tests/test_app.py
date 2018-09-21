@@ -4,7 +4,7 @@ import unittest
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.tester = app.test_client(self)
+        self.tester = app.test_client()
 
     def tearDown(self):
         self.tester = None
@@ -25,12 +25,12 @@ class AppTestCase(unittest.TestCase):
         self.assertTrue(200, response.status_code)
 
     def test_put(self):
-        response = self.tester.put('/api/v1/orders/<int:orderId>', data = dict(), content_type='application/json')
-        self.assertTrue(201, response.status_code)
+        response = self.tester.put('/api/v1/orders/2', data = dict(), content_type='application/json')
+        self.assertEqual(201, response.status_code)
 
     def test_delete(self):
-        response = self.tester.delete('/api/v1/orders/<int:orderId>', data = dict(), content_type='application/json')
-        self.assertTrue(200, response.status_code)
+        response = self.tester.delete('/api/v1/orders/1', data = dict(), content_type='application/json')
+        self.assertEqual(200, response.status_code)
 
 if __name__ == '__main__':
     unittest.main()
