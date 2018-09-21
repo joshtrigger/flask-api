@@ -8,13 +8,13 @@ class OrderTest(unittest.TestCase):
     def test_get_all_orders(self):
         pass
 
-    def test_fetch_specific_order(self, orderId):
+    def test_fetch_specific_order(self):
         pass
 
-    def test_update_order_status(self, orderId):
+    def test_update_order_status(self):
         pass
 
-    def test_delete_order(self, orderId):
+    def test_delete_order(self):
         pass
 
 if __name__ == '__main__':
