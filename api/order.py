@@ -1,6 +1,6 @@
 from api.views import request, reqparse
 
-class myOrder(object):
+class myOrder:
     parser = reqparse.RequestParser()
     parser.add_argument('orderId', type=int, required=True, help='field cannot be blank')
     parser.add_argument('name', type=str, required=True, help='field cannot be blank')
