@@ -16,11 +16,10 @@ class myOrder:
 
         data = myOrder.parser.parse_args()
         
-        order = {'orderId':data['orderId'], 'items':[{
+        order = {'orderId':data['orderId'],
             'name':data['name'],
             'price':data['price']
-        }],
-        }
+            }
     
         self.orders.append(order)
         return order, 201
@@ -39,11 +38,11 @@ class myOrder:
         data = myOrder.parser.parse_args()
 
         if order is None:
-            order = {'orderId':data['orderId'], 'items':[{
+            order = {'orderId':data['orderId'],
             'name':data['name'],
-            'price':data['price']
-        }],
-        'state': False}
+            'price':data['price'],
+            'state': False
+            }
         
             self.orders.append(order)
         else:
