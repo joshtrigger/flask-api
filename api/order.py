@@ -11,8 +11,8 @@ class myOrder:
         self.orders = []
 
     def place_new_order(self):
-        if next(filter(lambda x:x['orderId'], self.orders), None):
-            return {'message': "Order already exists."}, 400
+        # if next(filter(lambda x:x['orderId'], self.orders), None):
+        #     return {'message': "Order already exists."}, 400
 
         data = myOrder.parser.parse_args()
         
