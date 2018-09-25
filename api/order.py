@@ -25,8 +25,7 @@ class myOrder:
         return order, 201
 
     def get_all_orders(self):
-        return self.orders
-
+        return self.orders, 200
     
     def fetch_specific_order(self, orderId):
         self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
@@ -51,4 +50,4 @@ class myOrder:
 
     def delete_order(self, orderId):
         self.orders = list(filter(lambda x:x['orderId'] != orderId, self.orders))
-        return {'message': 'order has been deleted'}
+        return {'message': 'order has been deleted'}, 200

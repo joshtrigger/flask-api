@@ -4,7 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from api.order import myOrder
 
 app = Flask(__name__)
-app.secret_key = 'josh123'
+#app.secret_key = 'josh123'
 api = Api(app)
 
 #jwt = JWT(authenticate, identity) /auth
