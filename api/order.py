@@ -7,7 +7,7 @@ class myOrder:
     parser.add_argument('price', type=int, required=True, help='field cannot be blank')
 
     def __init__(self):
-		#Initialization
+        """Initialisation"""
         self.orders = []
 
     def place_new_order(self):
