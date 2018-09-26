@@ -39,7 +39,7 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(201, response.status_code)
         self.assertIn('pizza', str(response.data))
         self.assertIn('2500', str(response.data))
-        self.assertIn('1', str(response.data))
+        self.assertIn('2', str(response.data))
         
     def test_put(self):
         """Tests api to edit and already existing order"""
