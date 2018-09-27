@@ -4,7 +4,7 @@ class myOrder:
     parser = reqparse.RequestParser(trim=False)
     parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
     parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
-    
+
     def __init__(self):
         """Initialisation"""
         self.orders = []
@@ -21,7 +21,8 @@ class myOrder:
             else:
                 order = {'orderId':len(self.orders) + 1,
                     'name':name,
-                    'price':data['price']
+                    'price':data['price'],
+                    'status': 'Pending'
                     }
 
         self.orders.append(order)
@@ -44,7 +45,8 @@ class myOrder:
         """updates the order status [PUT] method"""
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
         data = myOrder.parser.parse_args()
-        
+        status_data = request.get_json()
+
         if order is None:
             name = data['name']
             for x in name:
@@ -53,7 +55,8 @@ class myOrder:
                 else:
                     order = {'orderId':len(self.orders) + 1,
                         'name':name,
-                        'price':data['price']
+                        'price':data['price'],
+                        'status': status_data['status']
                         }
             self.orders.append(order)
         else:
