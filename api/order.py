@@ -4,6 +4,7 @@ class myOrder:
     parser = reqparse.RequestParser(trim=False)
     parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
     parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
+    #parser.add_argument('state', type=int, required=True, help='Error: Must be an Integer')
 
     def __init__(self):
         """Initialisation"""
@@ -23,7 +24,7 @@ class myOrder:
                 order = {'orderId':len(self.orders) + 1,
                     'name':name,
                     'price':data['price'],
-                    'state': 'Pending'
+                    'state':'Pending'
                     }
 
         self.orders.append(order)
