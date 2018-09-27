@@ -26,9 +26,9 @@ class myOrder:
                     'price':data['price'],
                     'state': False
                     }
-                    
-            self.orders.append(order)
-            return order, 201
+
+        self.orders.append(order)
+        return order, 201
 
     def get_all_orders(self):
         """retrieves all orders [GET] method"""
