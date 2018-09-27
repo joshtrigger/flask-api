@@ -4,16 +4,14 @@ class myOrder:
     parser = reqparse.RequestParser(trim=False)
     parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
     parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
-    #parser.add_argument('state', type=int, required=True, help='Error: Must be an Integer')
-
+    
     def __init__(self):
         """Initialisation"""
         self.orders = []
         
     def place_new_order(self):
         """places a new order [POST] method"""
-        # if next(filter(lambda x:x['orderId'], self.orders), None):
-        #     return {'message': "Order already exists."}, 400
+
         data = myOrder.parser.parse_args()
 
         name = data['name']
@@ -23,8 +21,7 @@ class myOrder:
             else:
                 order = {'orderId':len(self.orders) + 1,
                     'name':name,
-                    'price':data['price'],
-                    'state':'Pending'
+                    'price':data['price']
                     }
 
         self.orders.append(order)
@@ -33,8 +30,8 @@ class myOrder:
     def get_all_orders(self):
         """retrieves all orders [GET] method"""
         if self.orders:
-            return self.orders
-        return {'message': 'No orders found'}, 404
+            return self.orders, 200
+        return {'message':'No orders found'}
     
     def fetch_specific_order(self, orderId):
         """fetches a specific order [GET] method"""
@@ -56,8 +53,7 @@ class myOrder:
                 else:
                     order = {'orderId':len(self.orders) + 1,
                         'name':name,
-                        'price':data['price'],
-                        'state': 'Accepted'
+                        'price':data['price']
                         }
             self.orders.append(order)
         else:
