@@ -24,7 +24,7 @@ class myOrder:
                 order = {'orderId':len(self.orders) + 1,
                     'name':name,
                     'price':data['price'],
-                    'state': False
+                    'state': 'pending'
                     }
 
         self.orders.append(order)
