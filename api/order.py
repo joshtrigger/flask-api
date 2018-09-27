@@ -55,12 +55,13 @@ class myOrder:
             for x in name:
                 if x.isspace():
                     return {'message': 'Order name cannot be blank'}, 400
-            else:
-                order = {'orderId':len(self.orders) + 1,
-                    'name':name,
-                    'price':data['price'],
-                    'state': False
-                    }
+                else:
+                    order = {'orderId':len(self.orders) + 1,
+                        'name':name,
+                        'price':data['price'],
+                        'state': False
+                        }
+            self.orders.append(order)
         else:
             order.update(data)
         return order, 201
