@@ -52,6 +52,7 @@ class myOrder:
             for entry in status:
                 if entry.isspace():
                     return {'message': 'Field cannot be blank'}, 400
+                    break
                 
                 order = {'status': status}
                 self.orders.append(order)
