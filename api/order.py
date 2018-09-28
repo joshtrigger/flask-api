@@ -53,8 +53,8 @@ class myOrder:
                 return {'message': 'Field cannot be blank'}, 400
             
             order = {'status': status}
-            order.update(data)
             self.orders.append(order)
+            order.update(data)
         return order, 201
 
     def delete_order(self, orderId):
