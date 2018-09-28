@@ -49,14 +49,16 @@ class myOrder:
 
         if order is None:
             name = data['name']
-            for x in name:
+            status = status_data['status']
+
+            for x in name and status:
                 if x.isspace():
                     return {'message': 'Order name cannot be blank'}, 400
                 else:
                     order = {'orderId':len(self.orders) + 1,
                         'name':name,
                         'price':data['price'],
-                        'status': status_data['status']
+                        'status': status
                         }
             self.orders.append(order)
         else:
