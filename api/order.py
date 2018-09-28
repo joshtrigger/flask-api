@@ -50,7 +50,7 @@ class myOrder:
         if order is None:
             status = data['status']
 
-            if status.strip():
+            if status.isspace():
                 return {'message': 'Field cannot be blank'}, 400
             else:
                 order = {'status': status}
