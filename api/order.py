@@ -53,7 +53,7 @@ class myOrder:
 
             for x in name and status:
                 if x.isspace():
-                    return {'message': 'Field name cannot be blank'}, 400
+                    return {'message': 'Field cannot be blank'}, 400
                 else:
                     order = {'orderId':len(self.orders) + 1,
                         'name':name,
