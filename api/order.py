@@ -45,10 +45,10 @@ class myOrder:
         """updates the order status [PUT] method"""
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
         data = myOrder.parser.parse_args()
-        #status_data = request.get_json()
+        status_data = request.get_json()
 
         if order is None:
-            status = data['status']
+            status = status_data['status']
 
             for x in status:
                 if x.isspace():
