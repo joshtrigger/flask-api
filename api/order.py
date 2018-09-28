@@ -47,7 +47,7 @@ class myOrder:
         #data = myOrder.parser.parse_args()
         status_data = request.get_json()
 
-        if order is None:
+        if order:
             status = status_data['status']
             for entry in status:
                 if entry.isspace():
