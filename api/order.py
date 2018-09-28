@@ -1,18 +1,17 @@
 from api.views import request, reqparse, abort
 
 class myOrder:
-    parser = reqparse.RequestParser(trim=False)
-    parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
-    parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
-
+   
     def __init__(self):
         """Initialisation"""
         self.orders = []
         
     def place_new_order(self):
         """places a new order [POST] method"""
-
-        data = myOrder.parser.parse_args()
+        parser = reqparse.RequestParser(trim=False)
+        parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
+        parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
+        data = parser.parse_args()
 
         name = data['name']
         for x in name:
@@ -44,16 +43,18 @@ class myOrder:
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
-        data = myOrder.parser.parse_args()
-        #status_data = request.get_json()
+        parser = reqparse.RequestParser()
+        parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
+        data = parser.parse_args()
 
         if order:
             status = data['status']
             if status.isspace():
                 return {'message': 'Field cannot be blank'}, 400
             
-            order = {'name':'','price':1,'status': status}
+            order = {'status': status}
             self.orders.append(order)
+        else:
             order.update(data)
         return order, 201
 
