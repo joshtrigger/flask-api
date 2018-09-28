@@ -55,8 +55,8 @@ class myOrder:
                 
                 order = {'orderId':len(self.orders) + 1,'status': status}
                 self.orders.append(order)
-        else:
-            order.update(status_data)
+        
+                order.update(status_data)
         return order, 201
 
     def delete_order(self, orderId):
