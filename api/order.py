@@ -50,12 +50,11 @@ class myOrder:
         if order is None:
             status = data['status']
 
-            for x in status:
-                if x.strip():
-                    return {'message': 'Field cannot be blank'}, 400
-                else:
-                    order = {'status': status}
-            self.orders.append(order)
+            if status.strip():
+                return {'message': 'Field cannot be blank'}, 400
+            else:
+                order = {'status': status}
+                self.orders.append(order)
         else:
             order.update(data)
         return order, 201
