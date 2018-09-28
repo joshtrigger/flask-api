@@ -52,7 +52,7 @@ class myOrder:
             if status.isspace():
                 return {'message': 'Field cannot be blank'}, 400
             
-            order = {'status': status}
+            order = {'name':'','price':1,'status': status}
             self.orders.append(order)
             order.update(data)
         return order, 201
