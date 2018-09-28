@@ -51,7 +51,7 @@ class myOrder:
             status = data['status']
 
             for x in status:
-                if x.isspace():
+                if x.strip():
                     return {'message': 'Field cannot be blank'}, 400
                 else:
                     order = {'status': status}
