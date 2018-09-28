@@ -49,13 +49,11 @@ class myOrder:
 
         if order is None:
             status = status_data['status']
+            order = {'status': status}
             for entry in status:
                 if entry.isspace():
-                    break
-                return {'message': 'Field cannot be blank'}, 400
+                    return {'message': 'Field cannot be blank'}, 400
                     
-                
-            order = {'status': status}
             self.orders.append(order)
         else:
             order.update(status_data)
