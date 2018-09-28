@@ -10,7 +10,7 @@ class AppTestCase(unittest.TestCase):
         self.order = {'orderId':1, 'name':'pizza', 'price':2500}
 
     def tearDown(self):
-        """Crashes down all initialized varaibles"""
+        """Crashes down all initialized variables"""
         self.tester = None
 
     def test_home(self):
@@ -27,7 +27,7 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(201, response.status_code)
 
         result_in_json = json.loads(response.data.decode('utf-8'))
-        result = self.tester.get('/api/v1/orders/{}'.format(result_in_json['orderId']), data = self.order)
+        result = self.tester.get('/api/v1/orders/{}'.format(result_in_json['orderId']), data = self.order )
         self.assertEqual(result.status_code, 200)
         self.assertIn('pizza', str(response.data))
         self.assertIn('2500', str(response.data))
