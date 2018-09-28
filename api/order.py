@@ -60,7 +60,7 @@ class myOrder:
                         'price':data['price'],
                         'status': status
                         }
-                self.orders.append(order)
+                    self.orders.append(order)
         else:
             order.update(data)
         return order, 201
