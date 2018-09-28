@@ -47,7 +47,7 @@ class myOrder:
         parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
         data = parser.parse_args()
 
-        if order:
+        if order is None:
             status = data['status']
             if status.isspace():
                 return {'message': 'Field cannot be blank'}, 400
