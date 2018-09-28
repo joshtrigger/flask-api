@@ -47,12 +47,17 @@ class myOrder:
         #data = myOrder.parser.parse_args()
         status_data = request.get_json()
 
-        if status_data.isspace():
-            return {'message':'Field cannot be blank'}, 400
-
-        # self.orders.append(order)
-        # order.update(status_data)
-        # return order, 201
+        if order is None:
+            status = status_data['status']
+            for entry in status:
+                if entry.isspace():
+                    return {'message': 'Field cannot be blank'}, 400
+                
+                order = {'status': status}
+                self.orders.append(order)
+        else:
+            order.update(status_data)
+        return order, 201
 
     def delete_order(self, orderId):
         """deletes an order [DELETE] method"""
