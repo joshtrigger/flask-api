@@ -49,13 +49,11 @@ class myOrder:
 
         if order is None:
             status = data['status']
-            if status.isspace():
-                return {'message': 'Field cannot be blank'}, 400
-            
             order = {'status': status}
             self.orders.append(order)
-        else:
-            order.update(data)
+        elif status.isspace():
+            return {'message': 'Field cannot be blank'}, 400
+        order.update(data)
         return order, 201
 
     def delete_order(self, orderId):
