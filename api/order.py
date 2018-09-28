@@ -44,11 +44,11 @@ class myOrder:
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
-        data = myOrder.parser.parse_args()
-        #data = request.get_json()
+        #data = myOrder.parser.parse_args()
+        status_data = request.get_json()
 
         if order is None:
-            status = data['status']
+            status = status_data['status']
 
             if status.isspace():
                 return {'message': 'Field cannot be blank'}, 400
@@ -56,7 +56,7 @@ class myOrder:
                 order = {'status': status}
                 self.orders.append(order)
         else:
-            order.update(data)
+            order.update(status_data)
         return order, 201
 
     def delete_order(self, orderId):
