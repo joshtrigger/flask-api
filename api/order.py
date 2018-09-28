@@ -49,14 +49,14 @@ class myOrder:
 
         if order:
             status = status_data['status']
-            for entry in status:
-                if entry.isspace():
-                    return {'message': 'Field cannot be blank'}, 400
-                else:
-                    order = {'status': status}
-                    self.orders.append(order)
-        else:
-            order.update(status_data)
+            # for entry in status:
+            if status.isspace():
+                return {'message': 'Field cannot be blank'}, 400
+            else:
+                order = {'status': status}
+                self.orders.append(order)
+        
+                order.update(status_data)
         return order, 201
 
     def delete_order(self, orderId):
