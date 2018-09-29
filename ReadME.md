@@ -16,7 +16,7 @@ Run the following in your command line
     - pip install flask
     - pip install virtualenv
     - virtual venv
-    - ./venv/Scripts/activate.bat or cd ...\venv\Sripts>activate 
+    - venv\Sripts\activate 
     - pip install Flask-RESTful
 
 To deactivate the virtual enviroment run `deactivate`
