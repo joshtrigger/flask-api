@@ -14,15 +14,15 @@ class myOrder:
         data = parser.parse_args()
 
         name = data['name']
-        for x in name:
-            if x.isspace():
-                return {'message': 'Order name cannot be blank'}, 400
-            else:
-                order = {'orderId':len(self.orders) + 1,
-                    'name':name,
-                    'price':data['price'],
-                    'status': 'Pending'
-                    }
+        
+        if name.isspace():
+            return {'message': 'Order name cannot be blank'}, 400
+        else:
+            order = {'orderId':len(self.orders) + 1,
+                'name':name,
+                'price':data['price'],
+                'status': 'Pending'
+                }
 
         self.orders.append(order)
         return order, 201
@@ -45,15 +45,25 @@ class myOrder:
         order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
         parser = reqparse.RequestParser()
         parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
+        parser.add_argument('name', type=str, required=True, help='Error: Must be a string')
+        parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
         data = parser.parse_args()
 
         if order is None:
-            status = data['status']
-            if status.isspace():
-                return {'message': 'Field cannot be blank'}, 400
-            order = {'status': status}
+            name = data['name']
+            if name.isspace():
+                return {'message': 'Order name cannot be blank'}, 400
+            order = {
+                    'orderId':len(self.orders)+1,
+                    'name':name,
+                    'price':data['price'],
+                    'status': 'Pending'
+                }
             self.orders.append(order)
         else:
+            status = data['status']
+            if status.isspace():
+                return {'message':'Field cannot be blank'}, 400
             order.update(data)
         return order, 201
 
