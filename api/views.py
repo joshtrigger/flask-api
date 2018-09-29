@@ -34,5 +34,13 @@ class Order(Resource):
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
 
+@app.errorhandler(404)
+def notfound(errorhandler):
+    return jsonify ({'message':'The URL you requested was not found'}), 404
+
+@app.errorhandler(500)
+def methodnotfound(errorhandler):
+    return jsonify ({'message':'An Internal server error occured'}), 500
+
 api.add_resource(Orders, '/api/v1/orders')
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
