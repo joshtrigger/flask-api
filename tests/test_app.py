@@ -49,8 +49,8 @@ class AppTestCase(unittest.TestCase):
 
         response = self.tester.put('/api/v1/orders/2', data = {'orderId':2,'name':'juice', 'price':1500,'status':'complete'})
         self.assertEqual(response.status_code, 201)
-        self.assertIn('2500', str(response.data))
-        self.assertIn('pizza', str(response.data))
+        self.assertIn('1500', str(response.data))
+        self.assertIn('juice', str(response.data))
         self.assertIn('complete', str(response.data))
 
     def test_delete(self):
