@@ -25,7 +25,7 @@ class Orders(Resource):
         return my_orders.place_new_order()
 
     """Gets all orders"""
-    @jwt_required
+    @jwt_required()
     def get(self):
         return my_orders.get_all_orders()
 
