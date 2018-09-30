@@ -1,9 +1,15 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api, reqparse
 from api.order import myOrder
+from flask_jwt import JWT, jwt_required
+
+from security import authenticate, identity
 
 app = Flask(__name__)
+app.secret_key = '1234'
 api = Api(app)
+
+jwt = JWT(app, authenticate, identity) #/auth
 
 @app.route('/', methods=['GET'])
 def home():
@@ -18,6 +24,7 @@ class Orders(Resource):
         return my_orders.place_new_order()
 
     """Gets all orders"""
+    @jwt_required
     def get(self):
         return my_orders.get_all_orders()
 
