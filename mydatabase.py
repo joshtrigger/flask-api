@@ -4,7 +4,7 @@ from pprint import pprint
 class DatabaseConnection:
     def __init__(self):
         try:
-            self.connection = psycopg2.connect(dbname = "postgres", user = "postgres",
+            self.connection = psycopg2.connect(dbname = "", user = "postgres",
              password = "mypostgres", port = "5432")
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
