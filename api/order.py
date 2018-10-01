@@ -26,26 +26,29 @@ class myOrder:
                 'status': 'Pending'
                 }
 
-        result = self.database.cursor.execute("""
+        self.database.cursor.execute("""
             INSERT INTO orders(orderId, name, price, status)
             VALUES(DEFAULT, name, price, status)
-            RETURNING orderId , name, price, status
+            RETURNING orderId, name, price, status
         """)
-        
+
         return order, 201
 
     def get_all_orders(self):
         """retrieves all orders [GET] method"""
-        if self.orders:
-            return self.orders, 200
-        return {'message':'No orders found'}
+        self.database.cursor.execute("""
+            SELECT * FROM orders
+        """)
+        orders = self.database.cursor.fetchall()
+        return orders, 200
     
     def fetch_specific_order(self, orderId):
         """fetches a specific order [GET] method"""
-        self.order = next(filter(lambda x:x['orderId'] == orderId, self.orders), None)
-        if self.order:
-            return self.order, 200 
-        return {'message':'The order you requested does not exist'}, 404
+        self.database.cursor.execute("""
+            SELECT FROM orders WHERE orderId ='{}'
+        """.format(orderId))
+        order = self.database.cursor.fetchone()
+        return order, 200
 
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
@@ -61,20 +64,26 @@ class myOrder:
             if name.isspace():
                 return {'message': 'Order name cannot be blank'}, 400
             order = {
-                    'orderId':len(self.orders)+1,
                     'name':name,
                     'price':data['price'],
                     'status': 'Pending'
                 }
-            self.orders.append(order)
+            self.database.cursor.execute("""
+                INSERT INTO orders(orderId, name, price, status)
+                VALUES(DEFAULT, name, price, status)
+                RETURNING orderId, name, price, status
+            """)
         else:
             status = data['status']
             if status.isspace():
                 return {'message':'Field cannot be blank'}, 400
-            order.update(data)
+            self.database.cursor.execute("""
+                UPDATE orders SET status = 'complete' WHERE orderId = '{}'
+            """.format(orderId))
         return order, 201
 
     def delete_order(self, orderId):
         """deletes an order [DELETE] method"""
-        self.orders = list(filter(lambda x:x['orderId'] != orderId, self.orders))
-        return {'message': 'order has been deleted'}, 200
+        self.database.cursor.execute("""
+            DELETE FROM orders WHERE orderId = '{}'
+        """.format(orderId))
