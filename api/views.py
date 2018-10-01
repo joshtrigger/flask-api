@@ -4,13 +4,13 @@ from api.order import myOrder
 from flask_jwt import JWT, jwt_required
 import json
 
-from security import authenticate, identity
+# from security import authenticate, identity
 
 app = Flask(__name__)
 app.secret_key = '1234'
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity) #/auth
+# jwt = JWT(app, authenticate, identity) #/auth
 
 @app.route('/', methods=['GET'])
 def home():

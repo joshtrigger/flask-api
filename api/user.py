@@ -6,7 +6,7 @@ class User:
         self.database = Database()
         self.database.create_user_table()
 
-    def signup(self):
+    def create_user(self):
         """create a user account [POST]"""
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, required=True, help='Field cannot be blank')
@@ -15,16 +15,18 @@ class User:
 
         data = parser.parse_args()
         
-        username = data['username']
-        email = data['email']
-        password = data['password']
+        self.database.cursor.execute("INSERT INTO users(username, email, password)\
+            VALUES('{}', '{}', '{}')\
+            RETURNING userId, username, email, password".format(data['username'],
+            data['email'], data['password']))
 
-        self.database.cursor.execute("""
-            INSERT INTO users(username, email, password)
-            VALUES
-        """)
-
-    def login(self):
+    def login_user(self):
         """user login [POST]"""
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument('username', type=str, required=True, help='Field cannot be blank')
+        parser.add_argument('password', type=str, required=True, help='Field cannot be blank')
+
+        data = parser.parse_args()
+
+        self.database.cursor.execute("SELECT * FROM users WHERE email = '{}'".format(data['email']))
         

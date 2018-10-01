@@ -1,4 +1,4 @@
-from api.views import request, reqparse, abort, json
+from api.views import request, reqparse, abort
 from mydatabase import Database
 
 class myOrder:
@@ -27,8 +27,8 @@ class myOrder:
                 }
 
         self.database.cursor.execute("""
-            INSERT INTO orders(%s, %s, %s, %s, %s)
-            VALUES(userId, foodId, name, price, status)
+            INSERT INTO orders(orderId, foodId, name, price, status)
+            VALUES()
             RETURNING orderId, userId, foodId, name, price, status
         """)
 
@@ -40,6 +40,8 @@ class myOrder:
             SELECT * FROM orders
         """)
         orders = self.database.cursor.fetchall()
+        if len(orders) == 0:
+            return {'message':'No order was found'}, 404
         return orders, 200
     
     def fetch_specific_order(self, orderId):
