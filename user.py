@@ -4,3 +4,6 @@ class User:
         self.username = username
         self.email = email
         self.password = password
+
+    def create_user(self):
+        pass
