@@ -16,7 +16,8 @@ class Database:
     def create_user_table(self):
         create_table = """CREATE TABLE IF NOT EXISTS users(
             userId SERIAL PRIMARY KEY, 
-            username VARCHAR, email VARCHAR,
+            username VARCHAR,
+            email VARCHAR,
             password VARCHAR)"""
         self.cursor.execute(create_table)
         self.connection.commit()
