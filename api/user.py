@@ -32,7 +32,7 @@ class User:
         query = "SELECT * FROM users WHERE password = '{}'"
         self.database.cursor.execute(query.format(data['password']))
         
-        return {'message':'You\'re successfully logged in'}, 200
+        return {'message':'You are successfully logged in'}, 200
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"

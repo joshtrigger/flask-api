@@ -3,7 +3,6 @@ from flask_restful import Resource, Api, reqparse
 from api.order import myOrder
 from api.user import User
 from flask_jwt import JWT, jwt_required
-import json
 
 # from security import authenticate, identity
 
