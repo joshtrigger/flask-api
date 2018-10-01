@@ -36,8 +36,6 @@ class Database:
             orderId SERIAL PRIMARY KEY,
             userId INTEGER NOT NULL,
             foodId INTEGER NOT NULL,
-            name VARCHAR,
-            price BIGINT NOT NULL,
             status VARCHAR DEFAULT 'Pending',
             FOREIGN KEY (userId)
                 REFERENCES users (userId)
