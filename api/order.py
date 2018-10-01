@@ -1,10 +1,12 @@
 from api.views import request, reqparse, abort
+from mydatabase import Database
 
 class myOrder:
    
     def __init__(self):
         """Initialisation"""
-        self.orders = []
+        self.database = Database()
+        self.database.create_order_table()
         
     def place_new_order(self):
         """places a new order [POST] method"""
@@ -18,13 +20,18 @@ class myOrder:
         if name.isspace():
             return {'message': 'Order name cannot be blank'}, 400
         else:
-            order = {'orderId':len(self.orders) + 1,
+            order = {
                 'name':name,
                 'price':data['price'],
                 'status': 'Pending'
                 }
 
-        self.orders.append(order)
+        result = self.database.cursor.execute("""
+            INSERT INTO orders(orderId, name, price, status)
+            VALUES(DEFAULT, name, price, status)
+            RETURNING orderId , name, price, status
+        """)
+        
         return order, 201
 
     def get_all_orders(self):
