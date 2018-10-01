@@ -27,10 +27,10 @@ class myOrder:
                 }
 
         self.database.cursor.execute("""
-            INSERT INTO orders(orderId, foodId, name, price, status)
-            VALUES()
-            RETURNING orderId, userId, foodId, name, price, status
-        """)
+            INSERT INTO orders(name, price)
+            VALUES('{}', '{}')
+            RETURNING orderId, name, price
+        """.format(data['name'], data['price']))
 
         return order, 201
 
@@ -50,7 +50,9 @@ class myOrder:
             SELECT FROM orders WHERE orderId ='{}'
         """.format(orderId))
         order = self.database.cursor.fetchone()
-        return order, 200
+        if order:
+            return order, 200
+        return {'message':'The order you requested does not exist'}, 404
 
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""

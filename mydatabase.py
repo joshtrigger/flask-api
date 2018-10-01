@@ -34,8 +34,8 @@ class Database:
     def create_order_table(self):
         create_table = """CREATE TABLE IF NOT EXISTS orders(
             orderId SERIAL PRIMARY KEY,
-            userId INTEGER NOT NULL,
-            foodId INTEGER NOT NULL,
+            userId INTEGER,
+            foodId INTEGER,
             name VARCHAR,
             price BIGINT NOT NULL,
             status VARCHAR DEFAULT 'Pending',
