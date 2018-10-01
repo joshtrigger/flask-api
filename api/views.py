@@ -44,9 +44,13 @@ class Order(Resource):
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
 
-class Users(Resource):
+class UserSignUp(Resource):
     def post(self):
-        pass
+        return customer.create_user()
+
+class UserLogin(Resource):
+    def post(self):
+        return customer.login_user()
 
 @app.errorhandler(404)
 def notfound(errorhandler):
@@ -58,3 +62,5 @@ def methodnotfound(errorhandler):
 
 api.add_resource(Orders, '/api/v1/orders')
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
+# api.add_resource(UserSignUp, '/api/v2/auth/signup')
+# api.add_resource(UserLogin, '/api/v2/auth/login')

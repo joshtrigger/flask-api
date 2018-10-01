@@ -25,20 +25,19 @@ class myOrder:
                 'price':data['price'],
                 'status': 'Pending'
                 }
-
-        self.database.cursor.execute("""
+        query = """
             INSERT INTO orders(name, price)
             VALUES('{}', '{}')
             RETURNING orderId, name, price
-        """.format(data['name'], data['price']))
+        """
+        self.database.cursor.execute(query.format(data['name'], data['price']))
 
         return order, 201
 
     def get_all_orders(self):
         """retrieves all orders [GET] method"""
-        self.database.cursor.execute("""
-            SELECT * FROM orders
-        """)
+        query = "SELECT * FROM orders"
+        self.database.cursor.execute(query)
         orders = self.database.cursor.fetchall()
         if len(orders) == 0:
             return {'message':'No order was found'}, 404
@@ -46,9 +45,8 @@ class myOrder:
     
     def fetch_specific_order(self, orderId):
         """fetches a specific order [GET] method"""
-        self.database.cursor.execute("""
-            SELECT FROM orders WHERE orderId ='{}'
-        """.format(orderId))
+        query = "SELECT FROM orders WHERE orderId ='{}'"
+        self.database.cursor.execute(query.format(orderId))
         order = self.database.cursor.fetchone()
         if order:
             return order, 200
@@ -63,12 +61,10 @@ class myOrder:
         status = data['status']
         if status.isspace():
             return {'message':'Field cannot be blank'}, 400
-        self.database.cursor.execute("""
-            UPDATE orders SET status = 'complete' WHERE orderId = '{}'
-        """.format(orderId))
+        query = "UPDATE orders SET status = 'complete' WHERE orderId = '{}'"
+        self.database.cursor.execute(query.format(orderId))
 
     def delete_order(self, orderId):
         """deletes an order [DELETE] method"""
-        self.database.cursor.execute("""
-            DELETE FROM orders WHERE orderId = '{}'
-        """.format(orderId))
+        query = "DELETE FROM orders WHERE orderId = '{}'"
+        self.database.cursor.execute(query.format(orderId))
