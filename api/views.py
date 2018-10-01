@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api, reqparse
 from api.order import myOrder
+from api.user import User
 from flask_jwt import JWT, jwt_required
 import json
 
@@ -18,6 +19,7 @@ def home():
 
 
 my_orders = myOrder()
+customer = User()
 
 class Orders(Resource):
     """Place new order"""
@@ -41,6 +43,10 @@ class Order(Resource):
     """Deletes an order from order list"""
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
+
+class Users(Resource):
+    def post(self):
+        pass
 
 @app.errorhandler(404)
 def notfound(errorhandler):
