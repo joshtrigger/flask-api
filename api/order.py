@@ -64,3 +64,7 @@ class myOrder:
         """deletes an order [DELETE] method"""
         query = "DELETE FROM orders WHERE orderId = '{}'"
         self.database.cursor.execute(query.format(orderId))
+        return {'message':'Order has been deleted'}, 200
+
+    def get_order_history(self):
+        pass
