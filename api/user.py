@@ -1,4 +1,5 @@
 from api.views import request, reqparse
+import jwt, datetime
 from mydatabase import Database
 
 class User:
@@ -32,12 +33,23 @@ class User:
         parser.add_argument('password', type=str, required=True, help='Field cannot be blank')
 
         data = parser.parse_args()
-        query = "SELECT * FROM users WHERE password = '{}'"
-        self.database.cursor.execute(query.format(data['password']))
-        if self.find_user_by_password(data['password']):
-            return {'message':'You are successfully logged in'}, 200
-        return {'message':'username or password is incorrect'}, 400
+        query = "SELECT * FROM users WHERE username = '{}'"
+        self.database.cursor.execute(query.format(data['username']))
+        if self.find_user_by_name(data['username']):
+            token = jwt.encode({
+                'username': data['username'],
+                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                }, 'customerkey')
+            return {'message':'You are successfully logged in', 'token': token.decode('utf-8')}, 200
         
+        elif data['username'] == 'admin' and data['password'] == 'mynameisadmin':
+            token = jwt.encode({
+                'username': data['username'],
+                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                }, 'adminkey')
+            return {'message':'welcome admin', 'token': token.decode('utf-8')}, 200
+
+        return {'message':'username or password is incorrect'}, 400
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"
