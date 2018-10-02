@@ -34,9 +34,10 @@ class User:
         data = parser.parse_args()
         query = "SELECT * FROM users WHERE password = '{}'"
         self.database.cursor.execute(query.format(data['password']))
-        if data['password'] != 'qwerty':
-            return {'message':'username or password is incorrect'}, 400
-        return {'message':'You are successfully logged in'}, 200
+        if self.find_user_by_password(data['password']):
+            return {'message':'You are successfully logged in'}, 200
+        return {'message':'username or password is incorrect'}, 400
+        
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"
@@ -48,6 +49,13 @@ class User:
     def find_user_by_id(self, userId):
         query = "SELECT * FROM  users WHERE userId = '{}'"
         self.database.cursor.execute(query.format(userId))
+        row = self.database.cursor.fetchone()
+        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
+        return user
+
+    def find_user_by_password(self, password):
+        query = "SELECT * FROM  users WHERE password = '{}'"
+        self.database.cursor.execute(query.format(password))
         row = self.database.cursor.fetchone()
         user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
         return user
