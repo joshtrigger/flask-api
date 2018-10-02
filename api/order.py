@@ -48,14 +48,15 @@ class myOrder:
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
         parser = reqparse.RequestParser()
+        parser.add_argument('orderId', type=str, required=True, help='Error: Must be a string')
         parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
         data = parser.parse_args()
-        orderId = data['orderId']
         status = data['status']
         if status.isspace():
             return {'message':'Field cannot be blank'}, 400
         query = "UPDATE orders SET status = '{}' WHERE orderId = '{}'"
-        self.database.cursor.execute(query.format(data['status'], data['orderId']))
+        self.database.cursor.execute(query.format(status, data['orderId']))
+        return {'message':'Order status has been updated'}
 
     def delete_order(self, orderId):
         """deletes an order [DELETE] method"""
