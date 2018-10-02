@@ -27,7 +27,7 @@ class Database:
             foodId SERIAL PRIMARY KEY,
             name VARCHAR,
             description VARCHAR,
-            price INTEGER NOT NULL)"""
+            price BIGINT NOT NULL)"""
         self.cursor.execute(create_table)
         self.connection.commit()
 
@@ -36,8 +36,6 @@ class Database:
             orderId SERIAL PRIMARY KEY,
             userId INTEGER NOT NULL,
             foodId INTEGER NOT NULL,
-            name VARCHAR,
-            price BIGINT NOT NULL,
             status VARCHAR DEFAULT 'Pending',
             FOREIGN KEY (userId)
                 REFERENCES users (userId)

@@ -10,27 +10,23 @@ class myOrder:
         
     def place_new_order(self):
         """places a new order [POST] method"""
-        parser = reqparse.RequestParser(trim=False)
-        parser.add_argument('name', type=str, required=True, help='Error: Must be a string', nullable=False)
-        parser.add_argument('price', type=int, required=True, help='Error: Must be an Integer')
+        parser = reqparse.RequestParser()
+        parser.add_argument('foodId', type=int, required=True, help='Error: Must be an Integer')
         data = parser.parse_args()
 
-        name = data['name']
+        order_name = data['foodId']
         
-        if name.isspace():
-            return {'message': 'Order name cannot be blank'}, 400
+        if order_name is None:
+            return {'message': 'Field cannot be blank'}, 400
         else:
             order = {
-                'name':name,
-                'price':data['price'],
-                'status': 'Pending'
+                'foodId':order_name,
                 }
         query = """
-            INSERT INTO orders(name, price)
-            VALUES('{}', '{}')
-            RETURNING orderId, name, price
+            INSERT INTO orders(foodId)
+            VALUES('{}')
         """
-        self.database.cursor.execute(query.format(data['name'], data['price']))
+        self.database.cursor.execute(query.format(data['foodId']))
 
         return order, 201
 

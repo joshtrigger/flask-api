@@ -59,7 +59,7 @@ def notfound(errorhandler):
 def methodnotfound(errorhandler):
     return jsonify ({'message':'An Internal server error occured'}), 500
 
-api.add_resource(Orders, '/api/v1/orders')
+api.add_resource(Orders, '/api/v1/users/orders')
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
-# api.add_resource(UserSignUp, '/api/v2/auth/signup')
-# api.add_resource(UserLogin, '/api/v2/auth/login')
+api.add_resource(UserSignUp, '/api/v2/auth/signup')
+api.add_resource(UserLogin, '/api/v2/auth/login')

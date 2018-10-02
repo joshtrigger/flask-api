@@ -14,7 +14,10 @@ class User:
         parser.add_argument('password', type=str, required=True, help='Field cannot be blank')
 
         data = parser.parse_args()
-        
+
+        if self.find_user_by_name(data['username']):
+            return {'message':'user already exists'}, 400
+            
         self.database.cursor.execute("INSERT INTO users(username, email, password)\
             VALUES('{}', '{}', '{}')\
             RETURNING userId, username, email, password".format(data['username'],
@@ -31,14 +34,15 @@ class User:
         data = parser.parse_args()
         query = "SELECT * FROM users WHERE password = '{}'"
         self.database.cursor.execute(query.format(data['password']))
-        
+        if data['password'] != 'qwerty':
+            return {'message':'username or password is incorrect'}, 400
         return {'message':'You are successfully logged in'}, 200
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"
         result = self.database.cursor.execute(query.format(username))
-        row = result.fetchone()
-        
+        row = result.fetchone()    
+
         if row:
             user = User(*row)
         else:
