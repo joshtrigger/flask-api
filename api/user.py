@@ -40,22 +40,14 @@ class User:
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"
-        result = self.database.cursor.execute(query.format(username))
-        row = result.fetchone()    
-
-        if row:
-            user = User(*row)
-        else:
-            user = None
+        self.database.cursor.execute(query.format(username))
+        row = self.database.cursor.fetchone()
+        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
         return user
 
     def find_user_by_id(self, userId):
         query = "SELECT * FROM  users WHERE userId = '{}'"
-        result = self.database.cursor.execute(query.format(userId))
-        row = result.fetchone()
-        
-        if row:
-            user = User(*row)
-        else:
-            user = None
+        self.database.cursor.execute(query.format(userId))
+        row = self.database.cursor.fetchone()
+        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
         return user
