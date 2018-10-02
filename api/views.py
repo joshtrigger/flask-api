@@ -48,7 +48,7 @@ my_menu = Menu()
 
 class Orders(Resource):
     """Place new order"""
-    @customer_token
+    # @customer_token
     def post(self):
         return my_orders.place_new_order()
 
@@ -71,15 +71,17 @@ class Order(Resource):
         return my_orders.delete_order(orderId)
 
 class OrderHistory(Resource):
+    """Returns order history for a certain user"""
     def get(self):
         return my_orders.get_order_history()
 
 class Users(Resource):
-    """SignsUp  users"""
+    """Signs Up  users"""
     def post(self):
         return customer.create_user()
 
 class UsersLogin(Resource):
+    """Logs in a user"""
     def post(self):
         return customer.login_user()
 
