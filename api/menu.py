@@ -1,4 +1,4 @@
-from api.views import request, reqparse
+from api.views import request, reqparse, jsonify
 from mydatabase import Database
 
 class Menu:
@@ -13,6 +13,9 @@ class Menu:
         parser.add_argument('price', type=str, required=True, help='Field cannot be blank')
 
         data = parser.parse_args()
+
+        if self.find_menu_by_name(data['name']) and self.find_menu_by_description(data['description']):
+            return {'message':'Item already exists'}, 400
 
         query = ("INSERT INTO menu(name, description, price)\
             VALUES('{}', '{}', '{}')\
@@ -34,8 +37,24 @@ class Menu:
         query = "SELECT * FROM menu"
         self.database.cursor.execute(query)
         row = self.database.cursor.fetchall()
+        results = []
         if row:
-            item = {'foodId':row[0], 'name':row[0], 'description':row[0], 'price':row[0]}
-            return item
+            for item in row:
+                results.append(item)
+            return jsonify(results)
         else:
             item = None
+
+    def find_menu_by_name(self, name):
+        query = "SELECT * FROM  menu WHERE name = '{}'"
+        self.database.cursor.execute(query.format(name))
+        row = self.database.cursor.fetchone()
+        # item = {'foodId':row[0],'name':row[1],'description':row[2],'price':row[3]}
+        return row
+
+    def find_menu_by_description(self, description):
+        query = "SELECT * FROM  menu WHERE description = '{}'"
+        self.database.cursor.execute(query.format(description))
+        row = self.database.cursor.fetchone()
+        # item = {'foodId':row[0],'name':row[1],'description':row[2],'price':row[3]}
+        return row

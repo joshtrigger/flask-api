@@ -1,17 +1,13 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api, reqparse
+import jwt
 from api.order import myOrder
 from api.user import User
 from api.menu import Menu
-from flask_jwt import JWT, jwt_required
-
-# from security import authenticate, identity
 
 app = Flask(__name__)
-app.secret_key = '1234'
+app.config['SECRET_KEY'] = 'josh'
 api = Api(app)
-
-# jwt = JWT(app, authenticate, identity) #/auth
 
 @app.route('/', methods=['GET'])
 def home():
@@ -45,10 +41,18 @@ class Order(Resource):
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
 
+class OrderHistory(Resource):
+    def get(self):
+        return my_orders.get_order_history()
+
 class Users(Resource):
-    """SignsUp and SignsIn users"""
+    """SignsUp  users"""
     def post(self):
-        return customer.create_user(), customer.login_user()
+        return customer.create_user()
+
+class UsersLogin(Resource):
+    def post(self):
+        return customer.login_user()
 
 
 class FoodItem(Resource):
@@ -68,7 +72,9 @@ def notfound(errorhandler):
 def methodnotfound(errorhandler):
     return jsonify ({'message':'An Internal server error occured'}), 500
 
-api.add_resource(Orders, '/api/v1/users/orders')
+api.add_resource(Orders, '/api/v1/orders')
+api.add_resource(OrderHistory, '/api/v1/users/orders')
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
-api.add_resource(Users, '/api/v1/auth/signup', '/api/v1/auth/login')
+api.add_resource(Users, '/api/v1/auth/signup')
+api.add_resource(UsersLogin, '/api/v1/auth/login')
 api.add_resource(FoodItem, '/api/v1/menu', '/api/v1/menu')

@@ -43,19 +43,19 @@ class User:
         query = "SELECT * FROM  users WHERE username = '{}'"
         self.database.cursor.execute(query.format(username))
         row = self.database.cursor.fetchone()
-        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
-        return user
+        # user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
+        return row
 
     def find_user_by_id(self, userId):
         query = "SELECT * FROM  users WHERE userId = '{}'"
         self.database.cursor.execute(query.format(userId))
         row = self.database.cursor.fetchone()
-        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
-        return user
+        # user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
+        return row
 
     def find_user_by_password(self, password):
         query = "SELECT * FROM  users WHERE password = '{}'"
         self.database.cursor.execute(query.format(password))
         row = self.database.cursor.fetchone()
-        user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
-        return user
+        # user = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
+        return row
