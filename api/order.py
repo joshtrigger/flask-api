@@ -1,13 +1,14 @@
 from api.views import request, reqparse, abort, jsonify
 from mydatabase import Database
 
+
 class myOrder:
-   
+
     def __init__(self):
         """Initialisation"""
         self.database = Database()
         self.database.create_order_table()
-        
+
     def place_new_order(self):
         """places a new order [POST] method"""
         parser = reqparse.RequestParser()
@@ -35,10 +36,11 @@ class myOrder:
             return jsonify(results)
         else:
             item = None
+            return {'message':'No orders found'}, 404
     
     def fetch_specific_order(self, orderId):
         """fetches a specific order [GET] method"""
-        query = "SELECT FROM orders WHERE orderId ='{}'"
+        query = "SELECT * FROM orders WHERE orderId ='{}'"
         self.database.cursor.execute(query.format(orderId))
         order = self.database.cursor.fetchone()
         if order:
@@ -48,14 +50,13 @@ class myOrder:
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
         parser = reqparse.RequestParser()
-        parser.add_argument('orderId', type=str, required=True, help='Error: Must be a string')
         parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
         data = parser.parse_args()
         status = data['status']
         if status.isspace():
             return {'message':'Field cannot be blank'}, 400
         query = "UPDATE orders SET status = '{}' WHERE orderId = '{}'"
-        self.database.cursor.execute(query.format(status, data['orderId']))
+        self.database.cursor.execute(query.format(status, orderId))
         return {'message':'Order status has been updated'}
 
     def delete_order(self, orderId):

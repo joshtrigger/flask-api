@@ -1,5 +1,5 @@
 from api.views import request, reqparse
-import jwt, datetime
+import jwt, datetime, re
 from mydatabase import Database
 
 class User:
@@ -18,6 +18,10 @@ class User:
 
         if self.find_user_by_name(data['username']):
             return {'message':'user already exists'}, 400
+        if data['username'].isspace():
+            return {'message':'Field cannot be blank'}, 400
+        if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
+            return {'message':'Invalid email'}, 400
             
         self.database.cursor.execute("INSERT INTO users(username, email, password)\
             VALUES('{}', '{}', '{}')\
@@ -35,7 +39,7 @@ class User:
         data = parser.parse_args()
         query = "SELECT * FROM users WHERE username = '{}'"
         self.database.cursor.execute(query.format(data['username']))
-        if self.find_user_by_name(data['username']):
+        if self.find_user_by_name(data['username']) and self.find_user_by_password(data['password']):
             token = jwt.encode({
                 'username': data['username'],
                 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
