@@ -1,6 +1,7 @@
 from api.views import request, reqparse, jsonify
 from mydatabase import Database
 
+
 class Menu:
     def __init__(self):
         self.database = Database()
@@ -49,12 +50,10 @@ class Menu:
         query = "SELECT * FROM  menu WHERE name = '{}'"
         self.database.cursor.execute(query.format(name))
         row = self.database.cursor.fetchone()
-        # item = {'foodId':row[0],'name':row[1],'description':row[2],'price':row[3]}
         return row
 
     def find_menu_by_description(self, description):
         query = "SELECT * FROM  menu WHERE description = '{}'"
         self.database.cursor.execute(query.format(description))
         row = self.database.cursor.fetchone()
-        # item = {'foodId':row[0],'name':row[1],'description':row[2],'price':row[3]}
         return row
