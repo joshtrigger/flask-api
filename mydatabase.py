@@ -1,4 +1,5 @@
-import psycopg2, os
+import psycopg2
+import os
 from pprint import pprint
 
 
@@ -8,7 +9,7 @@ class Database:
             postgresdb = 'fastfood'
             if os.getenv('env') == "kil":
                 postgresdb = 'testdb'
-            
+
             print(postgresdb)
             self.connection = psycopg2.connect(
                     database=postgresdb, host="localhost", user="postgres",
@@ -21,7 +22,7 @@ class Database:
 
     def create_user_table(self):
         create_table = """CREATE TABLE IF NOT EXISTS users(
-            userId SERIAL PRIMARY KEY, 
+            userId SERIAL PRIMARY KEY,
             username VARCHAR,
             email VARCHAR,
             password VARCHAR)"""
@@ -57,4 +58,3 @@ database = Database()
 database.create_user_table()
 database.create_menu_table()
 database.create_order_table()
-    

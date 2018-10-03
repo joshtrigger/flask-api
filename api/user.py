@@ -11,18 +11,27 @@ class User:
     def create_user(self):
         """create a user account [POST]"""
         parser = reqparse.RequestParser()
-        parser.add_argument('username', type=str, required=True, help='Field cannot be blank')
-        parser.add_argument('email', type=str, required=True, help='Field cannot be blank')
-        parser.add_argument('password', type=str, required=True, help='Field cannot be blank')
+        parser.add_argument('username',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
+        parser.add_argument('email',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
+        parser.add_argument('password',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
 
         data = parser.parse_args()
 
         if self.find_user_by_name(data['username']):
-            return {'message':'user already exists'}, 400
+            return {'message': 'user already exists'}, 400
         if data['username'].isspace():
-            return {'message':'Field cannot be blank'}, 400
+            return {'message': 'Field cannot be blank'}, 400
         if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
-            return {'message':'Invalid email'}, 400
+            return {'message': 'Invalid email'}, 400
             
         self.database.cursor.execute("INSERT INTO users(username, email, password)\
             VALUES('{}', '{}', '{}')\
@@ -34,8 +43,14 @@ class User:
     def login_user(self):
         """user login [POST]"""
         parser = reqparse.RequestParser()
-        parser.add_argument('username', type=str, required=True, help='Field cannot be blank')
-        parser.add_argument('password', type=str, required=True, help='Field cannot be blank')
+        parser.add_argument('username',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
+        parser.add_argument('password',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
 
         data = parser.parse_args()
         query = "SELECT * FROM users WHERE username = '{}'"
@@ -43,18 +58,22 @@ class User:
         if self.find_user_by_name(data['username']) and self.find_user_by_password(data['password']):
             token = jwt.encode({
                 'username': data['username'],
-                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                'exp': 
+                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
                 }, 'customerkey')
-            return {'message':'You are successfully logged in', 'token': token.decode('utf-8')}, 200
+            return {'message': 'You are successfully logged in',
+                    'token': token.decode('utf-8')}, 200
         
         elif data['username'] == 'admin' and data['password'] == 'mynameisadmin':
             token = jwt.encode({
                 'username': data['username'],
-                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                'exp':
+                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
                 }, 'adminkey')
-            return {'message':'welcome admin', 'token': token.decode('utf-8')}, 200
+            return {'message': 'welcome admin',
+                    'token': token.decode('utf-8')}, 200
 
-        return {'message':'username or password is incorrect'}, 400
+        return {'message': 'username or password is incorrect'}, 400
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"

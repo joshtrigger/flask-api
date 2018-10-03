@@ -39,7 +39,7 @@ class AppTestCase(unittest.TestCase):
         """Tests api to get all orders"""
         response = self.tester.get('/api/v1/orders', data=self.order)
         self.assertEqual(200, response.status_code)
-        
+
         """test api to get order history"""
         response = self.tester.get('/api/v1/users/orders', data=self.order)
         self.assertEqual(200, response.status_code)
@@ -51,7 +51,7 @@ class AppTestCase(unittest.TestCase):
         result = self.tester.get('/api/v1/orders/1', data=self.order)
         self.assertEqual(result.status_code, 200)
         self.assertIn('Your order has been received', str(response.data))
-            
+
     def test_put(self):
         """Tests api to edit and already existing order"""
         response = self.tester.put(

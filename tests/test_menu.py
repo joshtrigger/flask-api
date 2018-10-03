@@ -14,7 +14,8 @@ class AppTestCase(unittest.TestCase):
         self.database.create_menu_table()
         self.database.create_order_table()
         self.menu = {
-            'foodId': 1, 'name': 'pizza', 'description': 'hawain', 'price': 25000
+            'foodId': 1, 'name': 'pizza', 'description': 'hawain',
+            'price': 25000
             }
 
     def tearDown(self):
@@ -29,7 +30,7 @@ class AppTestCase(unittest.TestCase):
         response = self.tester.post('/api/v1/menu', data=self.menu)
         self.assertEqual(200, response.status_code)
         self.assertIn(b'{"message": "Item successfully added"}', response.data)
-        
+
     def test_get_all_items(self):
         """test api to add a food item to menu"""
         response = self.tester.get('/api/v1/menu', data=self.menu)

@@ -9,14 +9,23 @@ class Menu:
 
     def create_item(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('name', type=str, required=True, help='Field cannot be blank')
-        parser.add_argument('description', type=str, required=True, help='Field cannot be blank')
-        parser.add_argument('price', type=str, required=True, help='Field cannot be blank')
+        parser.add_argument('name',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
+        parser.add_argument('description',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
+        parser.add_argument('price',
+                            type=str,
+                            required=True,
+                            help='Field cannot be blank')
 
         data = parser.parse_args()
 
         if self.find_menu_by_name(data['name']) and self.find_menu_by_description(data['description']):
-            return {'message':'Item already exists'}, 400
+            return {'message': 'Item already exists'}, 400
 
         query = ("INSERT INTO menu(name, description, price)\
             VALUES('{}', '{}', '{}')\
@@ -25,7 +34,7 @@ class Menu:
         self.database.cursor.execute(query.format(data['name'],
             data['description'], data['price']))
 
-        return {'message':'Item successfully added'}
+        return {'message': 'Item successfully added'}
 
     def get_all_items(self):
         query = "SELECT * FROM menu"
@@ -38,7 +47,7 @@ class Menu:
             return jsonify(results)
         else:
             item = None
-            return {'message':'Menu is unavailable'}
+            return {'message': 'Menu is unavailable'}
 
     def find_menu_by_name(self, name):
         query = "SELECT * FROM  menu WHERE name = '{}'"

@@ -14,7 +14,8 @@ class AppTestCase(unittest.TestCase):
         self.database.create_menu_table()
         self.database.create_order_table()
         self.user = {
-            'userId': 1, 'username': 'joshua', 'email': 'joshua@gmail.com', 'password': 'yes'
+            'userId': 1, 'username': 'joshua', 'email': 'joshua@gmail.com',
+            'password': 'yes'
             }
 
     def tearDown(self):
@@ -29,8 +30,10 @@ class AppTestCase(unittest.TestCase):
         response = self.tester.post('/api/v1/auth/signup', data=self.user)
         self.assertEqual(201, response.status_code)
         self.assertIn('User created successfully', str(response.data))
-    
+
     def test_login_user(self):
-        response = self.tester.post('/api/v1/auth/login', data={'username': 'admin', 'password':'mynameisadmin'})
+        response = self.tester.post('/api/v1/auth/login', data={
+            'username': 'admin',
+            'password': 'mynameisadmin'})
         self.assertEqual(200, response.status_code)
         self.assertIn('welcome admin', str(response.data))
