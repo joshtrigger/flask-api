@@ -1,4 +1,5 @@
 from api.views import app
+from mydatabase import Database
 import unittest, json
 
 class AppTestCase(unittest.TestCase):
