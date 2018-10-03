@@ -27,13 +27,6 @@ class Menu:
 
         return {'message':'Item successfully added'}
 
-    def fetch_specific_item(self, foodId):
-        query = "SELECT FROM orders WHERE foodId ='{}'"
-        self.database.cursor.execute(query.format(foodId))
-        row = self.database.cursor.fetchone()
-        item = {'userId':row[0],'username':row[1],'email':row[2],'password':row[3]}
-        return item
-
     def get_all_items(self):
         query = "SELECT * FROM menu"
         self.database.cursor.execute(query)

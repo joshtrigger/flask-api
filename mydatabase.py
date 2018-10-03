@@ -5,16 +5,13 @@ from pprint import pprint
 class Database:
     def __init__(self):
         try:
-            if os.getenv('env') == "testing":
-
-                self.connection = psycopg2.connect(
-                    database="testdb", host="localhost", user="postgres",
-                    password="mypostgres", port="5432"
-                )
-                self.connection.autocommit = True
-                self.cursor = self.connection.cursor()
+            postgresdb = 'fastfood'
+            if os.getenv('env') == "kil":
+                postgresdb = 'testdb'
+            
+            print(postgresdb)
             self.connection = psycopg2.connect(
-                    database="fastfood", host="localhost", user="postgres",
+                    database=postgresdb, host="localhost", user="postgres",
                     password="mypostgres", port="5432"
                 )
             self.connection.autocommit = True
@@ -48,18 +45,16 @@ class Database:
             status VARCHAR DEFAULT 'Pending',
             FOREIGN KEY (userId)
                 REFERENCES users (userId)
-                ON UPDATE CASCADE ON DELETE CASCADE,
+                ON  DELETE CASCADE ON UPDATE CASCADE,
             FOREIGN KEY (foodId)
                 REFERENCES menu (foodId)
-                ON UPDATE CASCADE ON DELETE CASCADE
+                ON  DELETE CASCADE ON UPDATE CASCADE
         )"""
         self.cursor.execute(create_table)
         self.connection.commit()
-        
 
-if __name__ == '__main__':
-    database = Database()
-    database.create_user_table()
-    database.create_menu_table()
-    database.create_order_table()
+database = Database()
+database.create_user_table()
+database.create_menu_table()
+database.create_order_table()
     
