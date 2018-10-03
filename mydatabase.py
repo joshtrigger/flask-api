@@ -1,13 +1,22 @@
-import psycopg2
+import psycopg2, os
 from pprint import pprint
+
 
 class Database:
     def __init__(self):
         try:
+            if os.getenv('env') == "testing":
+
+                self.connection = psycopg2.connect(
+                    database="testdb", host="localhost", user="postgres",
+                    password="mypostgres", port="5432"
+                )
+                self.connection.autocommit = True
+                self.cursor = self.connection.cursor()
             self.connection = psycopg2.connect(
-                database = "fastfood", host = "localhost", user = "postgres",
-                password = "mypostgres", port = "5432"
-            )
+                    database="fastfood", host="localhost", user="postgres",
+                    password="mypostgres", port="5432"
+                )
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
         except:
@@ -46,6 +55,7 @@ class Database:
         )"""
         self.cursor.execute(create_table)
         self.connection.commit()
+        
 
 if __name__ == '__main__':
     database = Database()

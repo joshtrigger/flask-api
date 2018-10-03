@@ -1,5 +1,5 @@
 from api.views import app
-from testdb import Database
+from mydatabase import Database
 import unittest
 import json
 
@@ -14,13 +14,12 @@ class AppTestCase(unittest.TestCase):
         self.database.create_menu_table()
         self.database.create_order_table()
         self.order = {
-            'orderId': 1, 'userId': 1, 'foodId': 1, 'status': 'pending'
+            'orderId': 54, 'userId': 9, 'foodId': 7, 'status': 'pending'
             }
 
-    # def tearDown(self):
-    #     """Crashes down all initialized variables"""
-    #     self.database.drop_all_tables()
-    #     self.tester = None
+    def tearDown(self):
+        """Crashes down all initialized variables"""
+        self.tester = None
 
     def test_home(self):
         response = self.tester.get('/')
@@ -30,13 +29,18 @@ class AppTestCase(unittest.TestCase):
         """Tests api to get all orders"""
         response = self.tester.get('/api/v1/orders', data=self.order)
         self.assertEqual(200, response.status_code)
-        self.assertIn('Your order has been received', str(response.data))
+        self.assertIn(b'[53,9,7,"Pending"],', response.data)
+
+        """test api to get order history"""
+        response = self.tester.get('/api/v1/users/orders', data=self.order)
+        self.assertEqual(200, response.status_code)
+        self.assertIn(b'[9,"joshua","joshua@gmail.com","yes",62,9,7,"Pending"]', response.data)
 
         """Tests api to get a specific order"""
         response = self.tester.post('/api/v1/orders', data=self.order)
         self.assertEqual(201, response.status_code)
-        result = self.tester.get('/api/v1/orders/1', data=self.order)
-        self.assertEqual(result.status_code, 201)
+        result = self.tester.get('/api/v1/orders/62', data=self.order)
+        self.assertEqual(result.status_code, 200)
         self.assertIn('Your order has been received', str(response.data))
         
     def test_post(self):
@@ -49,7 +53,7 @@ class AppTestCase(unittest.TestCase):
         """Tests api to edit and already existing order"""
         response = self.tester.post(
             '/api/v1/orders',
-            data={'orderId': 2, 'userId': 1, 'foodId': 1, 'staus': 'pending'})
+            data={'orderId': 53, 'userId': 9, 'foodId': 7, 'staus': 'pending'})
         self.assertEqual(201, response.status_code)
 
         response = self.tester.put(
