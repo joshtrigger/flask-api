@@ -38,6 +38,7 @@ class Menu:
             return jsonify(results)
         else:
             item = None
+            return {'message':'Menu is unavailable'}
 
     def find_menu_by_name(self, name):
         query = "SELECT * FROM  menu WHERE name = '{}'"

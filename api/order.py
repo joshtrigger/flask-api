@@ -18,7 +18,7 @@ class myOrder:
 
         query = """
             INSERT INTO orders(foodId, userId)
-            VALUES('{}', '{}')
+            VALUES('{}','{}')
         """
         self.database.cursor.execute(query.format(data['foodId'], data['userId']))
 

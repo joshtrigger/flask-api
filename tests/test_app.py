@@ -31,7 +31,7 @@ class AppTestCase(unittest.TestCase):
 
     def test_post(self):
         """Tests api to place new order"""
-        response = self.tester.post('/api/v1/orders', data={'userId':1, 'foodId':1})
+        response = self.tester.post('/api/v1/orders', data=self.order)
         self.assertEqual(201, response.status_code)
         self.assertIn('Your order has been received', str(response.data))
 
