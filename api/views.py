@@ -48,30 +48,34 @@ my_menu = Menu()
 
 class Orders(Resource):
     """Place new order"""
-    # @customer_token
+    @customer_token
     def post(self):
         return my_orders.place_new_order()
 
     """Gets all orders"""
-    # @jwt_required()
+    @admin_token
     def get(self):
         return my_orders.get_all_orders()
 
 class Order(Resource):
     """Fetch a specific order"""
+    @admin_token
     def get(self, orderId):
         return my_orders.fetch_specific_order(orderId)
 
     """Update order status and creates new order"""
+    @admin_token
     def put(self, orderId):
         return my_orders.update_order_status(orderId)
 
     """Deletes an order from order list"""
+    @customer_token
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
 
 class OrderHistory(Resource):
     """Returns order history for a certain user"""
+    @customer_token
     def get(self):
         return my_orders.get_order_history()
 
@@ -88,10 +92,12 @@ class UsersLogin(Resource):
 
 class FoodItem(Resource):
     """Gets the menu"""
+    @customer_token
     def get(self):
         return my_menu.get_all_items()
 
     """Adds food item to menu """
+    @admin_token
     def post(self):
         return my_menu.create_item()
 
