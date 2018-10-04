@@ -2,6 +2,7 @@ from api.views import app
 from mydatabase import Database
 import unittest
 import json
+from tests.getToken import GetToken
 
 
 class AppTestCase(unittest.TestCase):
@@ -47,6 +48,4 @@ class AppTestCase(unittest.TestCase):
             'password': 'mynameisadmin'})
         self.assertEqual(200, response.status_code)
         self.assertIn('welcome admin', str(response.data))
-
-    def get_user_token(self):
-        pass
+        

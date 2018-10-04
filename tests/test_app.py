@@ -1,5 +1,6 @@
 from api.views import app
 from mydatabase import Database
+from tests.getToken import GetToken
 import unittest
 import json
 
