@@ -28,7 +28,7 @@ class User:
 
         if self.find_user_by_name(data['username']):
             return {'message': 'user already exists'}, 400
-        if data['username'].isspace():
+        if data['username'].isspace() or data['username'].strip():
             return {'message': 'Field cannot be blank'}, 400
         if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
             return {'message': 'Invalid email'}, 400
