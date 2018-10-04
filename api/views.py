@@ -92,6 +92,7 @@ class OrderHistory(Resource):
 
 class Users(Resource):
     """Signs Up  users"""
+    @swag_from('../Docs/signup.yml')
     def post(self):
         return customer.create_user()
 

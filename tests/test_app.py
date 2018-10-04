@@ -17,6 +17,10 @@ class AppTestCase(unittest.TestCase):
         self.order = {
             'orderId': 1, 'userId': 1, 'foodId': 1, 'status': 'pending'
             }
+        self.menu = {
+            'foodId': 1, 'name': 'pizza', 'description': 'hawain',
+            'price': 25000
+            }
 
     def tearDown(self):
         """Crashes down all initialized variables"""
@@ -38,7 +42,9 @@ class AppTestCase(unittest.TestCase):
     
     def test_neworder_token(self):
         """Tests api to place new order with token"""
-        
+        response = self.tester.post('/api/v1/menu',
+                                    data=self.menu,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
         response = self.tester.post('/api/v1/orders',
                                     data=self.order,
                                     headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
@@ -48,9 +54,17 @@ class AppTestCase(unittest.TestCase):
         """Tests api to get all orders without authorization"""
         response = self.tester.get('/api/v1/orders', data=self.order)
         self.assertEqual(403, response.status_code)
-
+        self.assertIn('Token is missing', str(response.data))
+        
     def test_orders_token(self):
-        """Tests api to get all orders without authorization"""
+        """Tests api to get all orders with authorization"""
+        response = self.tester.post('/api/v1/menu',
+                                    data=self.menu,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+        response = self.tester.post('/api/v1/orders',
+                                    data=self.order,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+        self.assertEqual(201, response.status_code)
         response = self.tester.get('/api/v1/orders',
                                    data=self.order,
                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
