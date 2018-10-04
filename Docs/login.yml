@@ -9,7 +9,7 @@ parameters:
       type: string
       description: Create user.
       schema:
-         id: signup
+         id: login
          properties:
             username:
               type: string

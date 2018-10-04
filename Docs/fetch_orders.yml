@@ -1,31 +1,18 @@
-Creates a user
+Fetch specific order
 ---
 tags:
-    - Authentication
+    - Orders
 parameters:
     - in: body
       name: body
       required: true
       type: string
-      description: Create user.
-      schema:
-         id: signup
-         properties:
-            username:
-              type: string
-              example: joshua
-            email:
-              type: string
-              example: lugada@gmail.com
-            password:
-              type: string
-              example: asdf
-responses:
-  201:
-    description: User created.
+      description: Get an order by the id.
 
-  409:
-    description: User conflict.
+responses:
+  200:
+    description: order retrieved.
+
   400:
     description: Invalid input.
 security:

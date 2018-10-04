@@ -1,33 +1,32 @@
-Creates a user
+Add item
 ---
 tags:
-    - Authentication
+    - Menu
 parameters:
     - in: body
       name: body
       required: true
       type: string
-      description: Create user.
+      description: Add an item to menu.
       schema:
-         id: signup
+         id: add menu
          properties:
-            username:
+            name:
               type: string
-              example: joshua
-            email:
+              example: Pizza
+            Description:
               type: string
-              example: lugada@gmail.com
-            password:
-              type: string
-              example: asdf
+              example: chicken hawain pizza
+            price:
+              type: int
+              example: 200
 responses:
-  201:
-    description: User created.
+  200:
+    description: Item created.
 
   409:
-    description: User conflict.
-  400:
-    description: Invalid input.
+    description: Item already exists.
+.
 security:
   - JWT:
       description: Pass in jwt token.

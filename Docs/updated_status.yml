@@ -1,33 +1,24 @@
-Creates a user
+Update status of order
 ---
 tags:
-    - Authentication
+    - Order
 parameters:
     - in: body
       name: body
       required: true
       type: string
-      description: Create user.
+      description: update status of order using orderId.
       schema:
-         id: signup
+         id: update
          properties:
-            username:
+            status:
               type: string
-              example: joshua
-            email:
-              type: string
-              example: lugada@gmail.com
-            password:
-              type: string
-              example: asdf
+              example: complete
+
 responses:
-  201:
+  200:
     description: User created.
 
-  409:
-    description: User conflict.
-  400:
-    description: Invalid input.
 security:
   - JWT:
       description: Pass in jwt token.

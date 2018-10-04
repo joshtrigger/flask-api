@@ -1,7 +1,7 @@
-Creates a user
+Place an order
 ---
 tags:
-    - Authentication
+    - Orders
 parameters:
     - in: body
       name: body
@@ -9,25 +9,19 @@ parameters:
       type: string
       description: Create user.
       schema:
-         id: signup
+         id: make order
          properties:
-            username:
-              type: string
-              example: joshua
-            email:
-              type: string
-              example: lugada@gmail.com
-            password:
-              type: string
-              example: asdf
+            foodId:
+              type: int
+              example: 1
+            userId:
+              type: int
+              example: 1
+
 responses:
   201:
-    description: User created.
+    description: Order created.
 
-  409:
-    description: User conflict.
-  400:
-    description: Invalid input.
 security:
   - JWT:
       description: Pass in jwt token.
