@@ -10,8 +10,9 @@ from api.menu import Menu
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'customerkey'
 app.config['ADMIN_KEY'] = 'adminkey'
-swagger = Swagger(app)
 api = Api(app)
+
+swagger = Swagger(app)
 
 
 def customer_token(f):
