@@ -36,4 +36,4 @@ uwsgi
 Werkzeug==0.14.1
 wrapt==1.10.11
 psycopg2
-Flask-JWT-Extended
+flasgger==0.9.1
