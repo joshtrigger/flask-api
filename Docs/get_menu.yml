@@ -12,4 +12,6 @@ responses:
     description: Successful.
 
 security:
-  - TokenHeader : []
+  - type: apiKey
+  - name: Authorization
+  - in: header

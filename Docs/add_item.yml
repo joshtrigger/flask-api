@@ -28,4 +28,6 @@ responses:
     description: Item already exists.
 
 security:
-  - TokenHeader : []
+  - type: apiKey
+  - name: Authorization
+  - in: header

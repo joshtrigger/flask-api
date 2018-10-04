@@ -14,19 +14,9 @@ api = Api(app)
 
 swagger = Swagger(
     app,
-    template={
-        "info": {
-            "title": "Fast Food Fast API",
-            "description": "A fast food delivery application"
-        },
-        "securityDefinitions": {
-            "TokenHeader": {
-                "type": "apiKey",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    })
+        {
+            "title": "Fast Food Fast API"
+        })
 
 def customer_token(f):
     @wraps(f)

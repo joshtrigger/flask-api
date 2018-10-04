@@ -15,4 +15,6 @@ responses:
     description: No orders found.
 
 security:
-  - TokenHeader : []
+  - type: apiKey
+  - name: Authorization
+  - in: header

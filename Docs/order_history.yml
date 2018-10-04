@@ -12,4 +12,6 @@ responses:
     description: Orders history seen.
 
 security:
-  - TokenHeader : []
+  - type: apiKey
+  - name: Authorization
+  - in: header

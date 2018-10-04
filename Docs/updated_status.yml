@@ -20,4 +20,6 @@ responses:
     description: User created.
 
 security:
-  - TokenHeader : []
+  - type: apiKey
+  - name: Authorization
+  - in: header
