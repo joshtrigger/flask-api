@@ -7,13 +7,19 @@ class Database:
     def __init__(self):
         try:
             postgresdb = 'fastfood'
-            if os.getenv('env') == "kil":
-                postgresdb = 'testdb'
+            Host="localhost"
+            User="postgres"
+            Password="mypostgres"
 
-            print(postgresdb)
+            if os.getenv('env') == "testing":
+                postgresdb = 'd2f38tueffr7ce'
+                Host="ec2-50-17-225-140.compute-1.amazonaws.com"
+                User="dzhofmmblttpam"
+                Password="9ba5d03c349c4e70dd59cd0168412f1fb191703985bf785a80c3a3002fd07003"
+
             self.connection = psycopg2.connect(
-                    database=postgresdb, host="localhost", user="postgres",
-                    password="mypostgres", port="5432"
+                    database=postgresdb, host=Host, user=User,
+                    password=Password, port="5432"
                 )
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
