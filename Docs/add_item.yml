@@ -26,11 +26,6 @@ responses:
 
   409:
     description: Item already exists.
-.
+
 security:
-  - JWT:
-      description: Pass in jwt token.
-      type: apiKey
-      scheme: bearer
-      name: acces-token
-      in: header
+  - TokenHeader : []

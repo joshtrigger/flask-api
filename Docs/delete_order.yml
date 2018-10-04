@@ -14,9 +14,4 @@ responses:
     description: order deleted.
 
 security:
-  - JWT:
-      description: Pass in jwt token.
-      type: apiKey
-      scheme: bearer
-      name: acces-token
-      in: header
+  - TokenHeader : []

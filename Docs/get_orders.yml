@@ -13,11 +13,6 @@ responses:
 
   404:
     description: No orders found.
-    
+
 security:
-  - JWT:
-      description: Pass in jwt token.
-      type: apiKey
-      scheme: bearer
-      name: acces-token
-      in: header
+  - TokenHeader : []
