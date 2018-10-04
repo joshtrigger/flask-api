@@ -118,7 +118,7 @@ class Users(Resource):
 
 class UsersLogin(Resource):
     """Logs in a user"""
-    @swag_from('../Docs/login.yml', methods=['GET'])
+    @swag_from('../Docs/login.yml', methods=['POST'])
     def post(self):
         return customer.login_user()
 

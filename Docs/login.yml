@@ -7,7 +7,7 @@ parameters:
       name: body
       required: true
       type: string
-      description: Create user.
+      description: Log in user.
       schema:
          id: login
          properties:
