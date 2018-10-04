@@ -25,7 +25,7 @@ class Menu:
         data = parser.parse_args()
 
         if self.find_menu_by_name(data['name']) and self.find_menu_by_description(data['description']):
-            return {'message': 'Item already exists'}, 400
+            return {'message': 'Item already exists'}, 409
 
         query = ("INSERT INTO menu(name, description, price)\
             VALUES('{}', '{}', '{}')\
@@ -34,7 +34,7 @@ class Menu:
         self.database.cursor.execute(query.format(data['name'],
             data['description'], data['price']))
 
-        return {'message': 'Item successfully added'}
+        return {'message': 'Item successfully added'}, 200
 
     def get_all_items(self):
         query = "SELECT * FROM menu"
