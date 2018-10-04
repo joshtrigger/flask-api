@@ -30,37 +30,64 @@ class AppTestCase(unittest.TestCase):
         self.assertTrue(200, response.status_code)
         self.assertIn('Welcome', str(response.data))
 
-    def test_unauthorized_post(self):
+    def test_neworder(self):
         """Tests api to place new order without token"""
         response = self.tester.post('/api/v1/orders', data=self.order)
         self.assertEqual(403, response.status_code)
         self.assertIn('Token is missing', str(response.data))
     
-    def test_authorized_post(self):
+    def test_neworder_token(self):
         """Tests api to place new order with token"""
-        response = self.tester.post('/api/v1/orders', data=self.order, headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
-        self.assertEqual(200, response.status_code)
-        # self.assertIn('Token is missing', str(response.data))
+        
+        response = self.tester.post('/api/v1/orders',
+                                    data=self.order,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+        self.assertEqual(201, response.status_code)
 
-    def test_get(self):
-        """Tests api to get all orders"""
+    def test_orders(self):
+        """Tests api to get all orders without authorization"""
         response = self.tester.get('/api/v1/orders', data=self.order)
         self.assertEqual(403, response.status_code)
 
+    def test_orders_token(self):
+        """Tests api to get all orders without authorization"""
+        response = self.tester.get('/api/v1/orders',
+                                   data=self.order,
+                                   headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+        self.assertEqual(200, response.status_code)
+
+    def test_history(self):
         """test api to get order history"""
         response = self.tester.get('/api/v1/users/orders', data=self.order)
         self.assertEqual(403, response.status_code)
         self.assertIn(b'Token is missing', response.data)
 
+    def test_history_token(self):
+        """test api to get order history"""
+        response = self.tester.get('/api/v1/users/orders',
+                                   data=self.order,
+                                   headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+        self.assertEqual(200, response.status_code)
+
+    def test_get_order(self):
         """Tests api to get a specific order"""
-        response = self.tester.post('/api/v1/orders', data=self.order)
-        self.assertEqual(403, response.status_code)
-        result = self.tester.get('/api/v1/orders/1', data=self.order)
-        self.assertEqual(result.status_code, 403)
+        response = self.tester.get('/api/v1/orders/1', data=self.order)
+        self.assertEqual(response.status_code, 403)
         self.assertIn('Token is missing', str(response.data))
 
+    def test_get_order_token(self):
+        """Tests api to get a specific order"""
+        query = "SELECT * FROM orders"
+        self.database.cursor.execute(query)
+        order = self.database.cursor.fetchone()
+        if order:
+            result = self.tester.get('/api/v1/orders/'+order[0],
+                                     data=self.order,
+                                     headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+            self.assertEqual(result.status_code, 200)
+
     def test_put(self):
-        """Tests api to edit and already existing order"""
+        """Tests api to edit and already existing order with token"""
         response = self.tester.put(
             '/api/v1/orders/2',
             data={'orderId': 2, 'userId': 1, 'foodId': 1, 'status': 'complete'}
@@ -68,12 +95,27 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertIn('Token is missing', str(response.data))
 
+    def test_put_token(self):
+        """Tests api to edit and already existing order with token"""
+        response = self.tester.put(
+            '/api/v1/orders/2',
+            data={'orderId': 2, 'userId': 1, 'foodId': 1, 'status': 'complete'},
+            headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+
+        self.assertEqual(response.status_code, 200)
+
     def test_delete(self):
-        """Test api to delete a certain order"""
+        """Test api to delete an order without token"""
         response = self.tester.delete('/api/v1/orders/1', data=self.order)
         self.assertEqual(403, response.status_code)
-        response = self.tester.get('/api/v1/orders/1', data=self.order)
-        self.assertEqual(403, response.status_code)
+
+    def test_delete_token(self):
+        """Test api to delete an order with token"""
+        response = self.tester.delete('/api/v1/orders/1',
+                                      data=self.order,
+                                      headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+        self.assertEqual(200, response.status_code)
+        
 
 if __name__ == ('__main__'):
     unittest.main()
