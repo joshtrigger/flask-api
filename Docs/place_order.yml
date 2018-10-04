@@ -1,0 +1,37 @@
+Creates a user
+---
+tags:
+    - Authentication
+parameters:
+    - in: body
+      name: body
+      required: true
+      type: string
+      description: Create user.
+      schema:
+         id: signup
+         properties:
+            username:
+              type: string
+              example: joshua
+            email:
+              type: string
+              example: lugada@gmail.com
+            password:
+              type: string
+              example: asdf
+responses:
+  201:
+    description: User created.
+
+  409:
+    description: User conflict.
+  400:
+    description: Invalid input.
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: acces-token
+      in: header
