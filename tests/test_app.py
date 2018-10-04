@@ -30,11 +30,17 @@ class AppTestCase(unittest.TestCase):
         self.assertTrue(200, response.status_code)
         self.assertIn('Welcome', str(response.data))
 
-    def test_post(self):
-        """Tests api to place new order"""
+    def test_unauthorized_post(self):
+        """Tests api to place new order without token"""
         response = self.tester.post('/api/v1/orders', data=self.order)
         self.assertEqual(403, response.status_code)
         self.assertIn('Token is missing', str(response.data))
+    
+    def test_authorized_post(self):
+        """Tests api to place new order with token"""
+        response = self.tester.post('/api/v1/orders', data=self.order, headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+        self.assertEqual(200, response.status_code)
+        # self.assertIn('Token is missing', str(response.data))
 
     def test_get(self):
         """Tests api to get all orders"""
