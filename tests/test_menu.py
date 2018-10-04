@@ -32,7 +32,7 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(403, response.status_code)
         self.assertIn(b'{"message": "Token is missing"}', response.data)
 
-    def test_create_item(self):
+    def test_create_item_token(self):
         """Tests api to add item to menu with token"""
         
         response = self.tester.post('/api/v1/menu',
@@ -45,7 +45,7 @@ class AppTestCase(unittest.TestCase):
         response = self.tester.get('/api/v1/menu', data=self.menu)
         self.assertEqual(403, response.status_code)
 
-    def test_get_all_items(self):
+    def test_get_all_items_token(self):
         """test api to return the menu without token"""
         response = self.tester.get('/api/v1/menu',
                                    data=self.menu,
