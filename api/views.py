@@ -56,11 +56,13 @@ my_menu = Menu()
 class Orders(Resource):
     """Place new order"""
     @customer_token
+    @swag_from('../Docs/place_order.yml', methods=['POST'])
     def post(self):
         return my_orders.place_new_order()
 
     """Gets all orders"""
     @admin_token
+    @swag_from('../Docs/get_orders.yml', methods=['GET'])
     def get(self):
         return my_orders.get_all_orders()
 
@@ -68,16 +70,19 @@ class Orders(Resource):
 class Order(Resource):
     """Fetch a specific order"""
     @admin_token
+    @swag_from('../Docs/fetch_orders.yml', methods=['GET'])
     def get(self, orderId):
         return my_orders.fetch_specific_order(orderId)
 
     """Update order status and creates new order"""
     @admin_token
+    @swag_from('../Docs/updated_status.yml', methods=['PUT'])
     def put(self, orderId):
         return my_orders.update_order_status(orderId)
 
     """Deletes an order from order list"""
     @customer_token
+    @swag_from('../Docs/delete_order.yml', methods=['DELETE'])
     def delete(self, orderId):
         return my_orders.delete_order(orderId)
 
@@ -85,6 +90,7 @@ class Order(Resource):
 class OrderHistory(Resource):
     """Returns order history for a certain user"""
     @customer_token
+    @swag_from('../Docs/order_history.yml', methods=['GET'])
     def get(self):
         return my_orders.get_order_history()
 
@@ -98,6 +104,7 @@ class Users(Resource):
 
 class UsersLogin(Resource):
     """Logs in a user"""
+    @swag_from('../Docs/login.yml', methods=['GET'])
     def post(self):
         return customer.login_user()
 
@@ -105,11 +112,13 @@ class UsersLogin(Resource):
 class FoodItem(Resource):
     """Gets the menu"""
     @customer_token
+    @swag_from('../Docs/get_menu.yml', methods=['GET'])
     def get(self):
         return my_menu.get_all_items()
 
     """Adds food item to menu """
     @admin_token
+    @swag_from('../Docs/add_item.yml', methods=['POST'])
     def post(self):
         return my_menu.create_item()
 
