@@ -12,11 +12,7 @@ app.config['SECRET_KEY'] = 'customerkey'
 app.config['ADMIN_KEY'] = 'adminkey'
 api = Api(app)
 
-swagger = Swagger(
-    app,
-        {
-            "title": "Fast Food Fast API"
-        })
+swagger = Swagger(app)
 
 def customer_token(f):
     @wraps(f)

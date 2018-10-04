@@ -23,6 +23,4 @@ responses:
     description: Order created.
 
 security:
- - type: apiKey
-  - name: Authorization
-  - in: header
+  - TokenHeader : []

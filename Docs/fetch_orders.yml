@@ -17,6 +17,4 @@ responses:
     description: Invalid input.
 
 security:
-  - type: apiKey
-  - name: Authorization
-  - in: header
+  - TokenHeader : []

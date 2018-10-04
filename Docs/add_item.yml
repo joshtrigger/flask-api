@@ -26,8 +26,6 @@ responses:
 
   409:
     description: Item already exists.
-
+    
 security:
-  - type: apiKey
-  - name: Authorization
-  - in: header
+  - TokenHeader : []
