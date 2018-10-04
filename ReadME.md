@@ -27,6 +27,9 @@ Testing of the API was done using postman, you can get it [here](https://www.get
 ## Hosting API on heroku
 First and foremost, ensure that your github repository is connected to heroku. Then add the required files that will enable heroku host your application. Now you can safely deploy your API to heroku. Check out mine [here](https://my-fast-food-api.herokuapp.com)
 
+## Documentating the API
+API documentation is a concise manual containing all the information required to work with the API containing instructions on how to effectively use the API. I documented my API using swagger, check it out [here](https://my-fast-food-api.herokuapp.com/apidocs/)
+
 ## API endpoints for the application
 Request|URL|Description
 ---|---|---
