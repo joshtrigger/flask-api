@@ -27,7 +27,7 @@ class User:
         data = parser.parse_args()
 
         if self.find_user_by_name(data['username']):
-            return {'message': 'user already exists'}, 400
+            return {'message': 'user already exists'}, 409
         if data['username'].isspace() or (' ' in data['username']):
             return {'message': 'Field cannot be blank'}, 400
         if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
