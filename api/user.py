@@ -58,7 +58,7 @@ class User:
         if self.find_user_by_name(data['username']) and self.find_user_by_password(data['password']):
             token = jwt.encode({
                 'username': data['username'],
-                'exp': 
+                'exp':
                 datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
                 }, 'customerkey')
             return {'message': 'You are successfully logged in',

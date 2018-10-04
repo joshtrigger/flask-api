@@ -17,11 +17,11 @@ def customer_token(f):
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
         if not token:
-            return {'message': 'Token is missing!'}, 403
+            return {'message': 'Token is missing'}, 403
         try:
             jwt.decode(token[7:], app.config['SECRET_KEY'])
         except:
-            return {'message': 'Token is invalid!'}, 403
+            return {'message': 'Token is invalid'}, 403
         return f(*args, **kwargs)
     return decorated
 
@@ -31,11 +31,11 @@ def admin_token(f):
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
         if not token:
-            return {'message': 'Token is missing!'}, 403
+            return {'message': 'Token is missing'}, 403
         try:
-            jwt.decode(token[7:], app.config['SECRET_KEY'])
+            jwt.decode(token[7:], app.config['ADMIN_KEY'])
         except:
-            return {'message': 'Token is invalid!'}, 403
+            return {'message': 'Token is invalid'}, 403
         return f(*args, **kwargs)
     return decorated
 

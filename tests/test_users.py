@@ -14,7 +14,7 @@ class AppTestCase(unittest.TestCase):
         self.database.create_menu_table()
         self.database.create_order_table()
         self.user = {
-            'userId': 1, 'username': 'joshua', 'email': 'joshua@gmail.com',
+            'username': 'joshua', 'email': 'joshua@gmail.com',
             'password': 'yes'
             }
 
@@ -32,8 +32,21 @@ class AppTestCase(unittest.TestCase):
         self.assertIn('User created successfully', str(response.data))
 
     def test_login_user(self):
+        """tests api for user login"""
+        response = self.tester.post('/api/v1/auth/signup', data=self.user)
+        self.assertEqual(201, response.status_code)
+        self.assertIn('User created successfully', str(response.data))
+        response = self.tester.post('/api/v1/auth/login', data=self.user)
+        self.assertEqual(200, response.status_code)
+        self.assertIn('You are successfully logged in', str(response.data))
+
+    def test_admin_signin(self):
+        """tests api for admin login"""
         response = self.tester.post('/api/v1/auth/login', data={
             'username': 'admin',
             'password': 'mynameisadmin'})
         self.assertEqual(200, response.status_code)
         self.assertIn('welcome admin', str(response.data))
+
+    def get_user_token(self):
+        pass

@@ -28,10 +28,10 @@ class AppTestCase(unittest.TestCase):
     def test_create_item(self):
         """test api to add a food item to menu"""
         response = self.tester.post('/api/v1/menu', data=self.menu)
-        self.assertEqual(200, response.status_code)
-        self.assertIn(b'{"message": "Item successfully added"}', response.data)
+        self.assertEqual(403, response.status_code)
+        self.assertIn(b'{"message": "Token is missing"}', response.data)
 
     def test_get_all_items(self):
-        """test api to add a food item to menu"""
+        """test api to return the menu"""
         response = self.tester.get('/api/v1/menu', data=self.menu)
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(403, response.status_code)
