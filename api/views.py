@@ -10,9 +10,8 @@ from api.menu import Menu
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'customerkey'
 app.config['ADMIN_KEY'] = 'adminkey'
-api = Api(app)
-
 swagger = Swagger(app)
+api = Api(app)
 
 
 def customer_token(f):
@@ -92,7 +91,7 @@ class OrderHistory(Resource):
 
 class Users(Resource):
     """Signs Up  users"""
-    @swag_from('../Docs/signup.yml')
+    @swag_from('../Docs/signup.yml', methods=['POST'])
     def post(self):
         return customer.create_user()
 
