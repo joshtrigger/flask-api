@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/joshtrigger/flask-api.svg?branch=develop)](https://travis-ci.org/joshtrigger/flask-api) 
-[![Coverage Status](https://coveralls.io/repos/github/joshtrigger/flask-api/badge.svg?branch=develop)](https://coveralls.io/github/joshtrigger/flask-api?branch=develop)
+[![Build Status](https://travis-ci.org/joshtrigger/flask-api.svg?branch=documentation)](https://travis-ci.org/joshtrigger/flask-api) 
+[![Coverage Status](https://coveralls.io/repos/github/joshtrigger/flask-api/badge.svg?branch=documentation)](https://coveralls.io/github/joshtrigger/flask-api?branch=documentation)
 [![Maintainability](https://api.codeclimate.com/v1/badges/10e4a57f3b541a2c4da6/maintainability)](https://codeclimate.com/github/joshtrigger/flask-api/maintainability)
 
 # Flask API
@@ -30,8 +30,12 @@ First and foremost, ensure that your github repository is connected to heroku. T
 ## API endpoints for the application
 Request|URL|Description
 ---|---|---
-**GET**|`/api/v1/orders`|Get all orders
-**GET**|`/api/v1/orders/orderId`|Fetch a specific order by its ID
-**POST**|`/api/v1/orders`|Place new order
-**PUT**|`/api/v1/orders/orderId`|Update order status
-**DELETE**|`/api/v1/orders/orderId`|Delete an order
+**POST**|`/auth/signup`|Register User
+**DELETE**|`/auth/login`|Login User
+**GET**|`/orders`|Get all orders
+**GET**|`/orders/orderId`|Fetch a specific order by its ID
+**POST**|`/users/orders`|Place new order
+**GET**|`/users/orders`|Order history
+**PUT**|`/orders/orderId`|Update order status
+**GET**|`/menu`|Get available menu
+**POST**|`/menu`|Add a meal
