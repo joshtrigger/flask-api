@@ -26,8 +26,14 @@ class User:
 
         data = parser.parse_args()
 
+        specialCharacters = ['$','#','@','!','*']
+
+        if any(char in specialCharacters for char in (data['username'])):
+            return {'message': 'username cannot have special characters'}, 400
         if self.find_user_by_name(data['username']):
             return {'message': 'user already exists'}, 409
+        if self.find_user_by_email(data['email']):
+            return {'message': 'please use another email address'}, 409
         if data['username'].isspace() or (' ' in data['username']):
             return {'message': 'Field cannot be blank'}, 400
         if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
@@ -81,9 +87,9 @@ class User:
         row = self.database.cursor.fetchone()
         return row
 
-    def find_user_by_id(self, userId):
-        query = "SELECT * FROM  users WHERE userId = '{}'"
-        self.database.cursor.execute(query.format(userId))
+    def find_user_by_email(self, email):
+        query = "SELECT * FROM  users WHERE email = '{}'"
+        self.database.cursor.execute(query.format(email))
         row = self.database.cursor.fetchone()
         return row
 
@@ -92,3 +98,4 @@ class User:
         self.database.cursor.execute(query.format(password))
         row = self.database.cursor.fetchone()
         return row
+ 
