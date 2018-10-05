@@ -32,5 +32,5 @@ security:
       description: Pass in jwt token.
       type: apiKey
       scheme: bearer
-      name: acces-token
+      name: Authorization
       in: header
