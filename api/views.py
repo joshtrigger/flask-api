@@ -13,14 +13,9 @@ app.config['ADMIN_KEY'] = 'adminkey'
 api = Api(app)
 
 swagger = Swagger(app, template={
-    "securityDefinitions":{
-            "TokenHeader":{
-                "type": "apikey",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    })
+    "title":"Fast Food API",
+    "description":"Developed by lugjosh"
+})
 
 def customer_token(f):
     @wraps(f)

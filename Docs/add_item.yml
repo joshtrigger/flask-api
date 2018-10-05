@@ -28,4 +28,9 @@ responses:
     description: Item already exists.
     
 security:
-  - TokenHeader : []
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: acces-token
+      in: header

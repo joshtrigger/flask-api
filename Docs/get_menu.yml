@@ -12,4 +12,9 @@ responses:
     description: Successful.
 
 security:
-  - TokenHeader : []
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: acces-token
+      in: header
