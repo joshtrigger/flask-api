@@ -43,7 +43,12 @@ class Menu:
         results = []
         if row:
             for item in row:
-                results.append(item)
+                results.append({
+                    'foodId':item[0],
+                    'name':item[1],
+                    'description':item[2],
+                    'price':item[3]
+                    })
             return jsonify(results)
         else:
             item = None

@@ -38,7 +38,12 @@ class myOrder:
         results = []
         if row:
             for item in row:
-                results.append({'orderId':item[0],'userId':item[1], 'foodId':item[2], 'status':item[3]})
+                results.append({
+                    'orderId':item[0],
+                    'userId':item[1],
+                    'foodId':item[2],
+                    'status':item[3]
+                    })
             return jsonify(results)
         else:
             item = None
@@ -79,5 +84,10 @@ class myOrder:
         results = []
         if row:
             for item in row:
-                results.append({'userId':item[0], 'name':item[1], 'foodId':item[5], 'status':item[7]})
+                results.append({
+                    'userId':item[0],
+                    'name':item[1],
+                    'foodId':item[5],
+                    'status':item[7]
+                    })
             return jsonify(results)
