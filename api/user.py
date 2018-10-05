@@ -30,13 +30,13 @@ class User:
 
         if any(char in specialCharacters for char in (data['username'])):
             return {'message': 'username cannot have special characters'}, 400
-        if self.find_user_by_name(data['username']):
+        elif self.find_user_by_name(data['username']):
             return {'message': 'user already exists'}, 409
-        if self.find_user_by_email(data['email']):
+        elif self.find_user_by_email(data['email']):
             return {'message': 'please use another email address'}, 409
-        if data['username'].isspace() or (' ' in data['username']):
+        elif data['username'].isspace() or (' ' in data['username']):
             return {'message': 'Field cannot be blank'}, 400
-        if not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
+        elif not re.match('[^@]+@[^@]+\.[^@]+', data['email']):
             return {'message': 'Invalid email'}, 400
             
         self.database.cursor.execute("INSERT INTO users(username, email, password)\
