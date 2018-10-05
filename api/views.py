@@ -12,7 +12,13 @@ app.config['SECRET_KEY'] = 'customerkey'
 app.config['ADMIN_KEY'] = 'adminkey'
 api = Api(app)
 
-swagger = Swagger(app)
+swagger = Swagger(app, template={
+    "TokenHeader":{
+        "type": "apikey",
+        "name": "Authorization",
+        "in": "header"
+    }
+})
 
 def customer_token(f):
     @wraps(f)
