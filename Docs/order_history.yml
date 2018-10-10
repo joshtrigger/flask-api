@@ -1,0 +1,20 @@
+Order history
+---
+tags:
+    - Orders
+parameters:
+    - in: body
+      name: body
+      description: Cutomer Order history.
+
+responses:
+  200:
+    description: Orders history seen.
+
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header

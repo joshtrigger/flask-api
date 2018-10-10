@@ -1,0 +1,25 @@
+Fetch specific order
+---
+tags:
+    - Orders
+parameters:
+    - in: body
+      name: body
+      required: true
+      type: string
+      description: Get an order by the id.
+
+responses:
+  200:
+    description: order retrieved.
+
+  400:
+    description: Invalid input.
+
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header

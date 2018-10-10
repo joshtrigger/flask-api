@@ -1,0 +1,23 @@
+Creates all orders
+---
+tags:
+    - Orders
+parameters:
+    - in: body
+      name: body
+      description: View orders made.
+
+responses:
+  200:
+    description: Orders seen.
+
+  404:
+    description: No orders found.
+
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header

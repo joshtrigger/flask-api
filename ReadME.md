@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/joshtrigger/flask-api.svg?branch=develop)](https://travis-ci.org/joshtrigger/flask-api) 
-[![Coverage Status](https://coveralls.io/repos/github/joshtrigger/flask-api/badge.svg?branch=develop)](https://coveralls.io/github/joshtrigger/flask-api?branch=develop)
+[![Build Status](https://travis-ci.org/joshtrigger/flask-api.svg?branch=documentation)](https://travis-ci.org/joshtrigger/flask-api) 
+[![Coverage Status](https://coveralls.io/repos/github/joshtrigger/flask-api/badge.svg?branch=documentation)](https://coveralls.io/github/joshtrigger/flask-api?branch=documentation)
 [![Maintainability](https://api.codeclimate.com/v1/badges/10e4a57f3b541a2c4da6/maintainability)](https://codeclimate.com/github/joshtrigger/flask-api/maintainability)
 
 # Flask API
@@ -27,11 +27,19 @@ Testing of the API was done using postman, you can get it [here](https://www.get
 ## Hosting API on heroku
 First and foremost, ensure that your github repository is connected to heroku. Then add the required files that will enable heroku host your application. Now you can safely deploy your API to heroku. Check out mine [here](https://my-fast-food-api.herokuapp.com)
 
+## Documentating the API
+API documentation is a concise manual containing all the information required to work with the API. It contains instructions on how to effectively use the API. I documented my API using swagger, check it out [here](https://my-fast-food-api.herokuapp.com/apidocs/)
+
 ## API endpoints for the application
 Request|URL|Description
 ---|---|---
-**GET**|`/api/v1/orders`|Get all orders
-**GET**|`/api/v1/orders/orderId`|Fetch a specific order by its ID
-**POST**|`/api/v1/orders`|Place new order
-**PUT**|`/api/v1/orders/orderId`|Update order status
-**DELETE**|`/api/v1/orders/orderId`|Delete an order
+**POST**|`/auth/signup`|Register User
+**POST**|`/auth/login`|Login User
+**GET**|`/orders`|Get all orders
+**GET**|`/orders/orderId`|Fetch a specific order by its ID
+**POST**|`/users/orders`|Place new order
+**GET**|`/users/orders`|Order history
+**PUT**|`/orders/orderId`|Update order status
+**DELETE**|`/orders/orderId`|Delete an order
+**GET**|`/menu`|Get available menu
+**POST**|`/menu`|Add a meal

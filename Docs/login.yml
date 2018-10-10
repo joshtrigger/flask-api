@@ -1,0 +1,25 @@
+Signs in user
+---
+tags:
+    - Authentication
+parameters:
+    - in: body
+      name: body
+      required: true
+      type: string
+      description: Log in user.
+      schema:
+         id: login
+         properties:
+            username:
+              type: string
+              example: joshua
+            password:
+              type: string
+              example: asdf
+responses:
+  200:
+    description: Logged in.
+
+  400:
+    description: Invalid input.

@@ -1,0 +1,36 @@
+Add item
+---
+tags:
+    - Menu
+parameters:
+    - in: body
+      name: body
+      required: true
+      type: string
+      description: Add an item to menu.
+      schema:
+         id: add menu
+         properties:
+            name:
+              type: string
+              example: Pizza
+            Description:
+              type: string
+              example: chicken hawain pizza
+            price:
+              type: int
+              example: 200
+responses:
+  200:
+    description: Item created.
+
+  409:
+    description: Item already exists.
+    
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header

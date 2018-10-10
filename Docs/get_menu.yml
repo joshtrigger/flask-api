@@ -1,0 +1,20 @@
+Get available menu
+---
+tags:
+    - Menu
+parameters:
+    - in: body
+      name: body
+      description: Get menu.
+
+responses:
+  200:
+    description: Successful.
+
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header

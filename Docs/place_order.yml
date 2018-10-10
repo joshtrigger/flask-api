@@ -1,0 +1,31 @@
+Place an order
+---
+tags:
+    - Orders
+parameters:
+    - in: body
+      name: body
+      required: true
+      type: string
+      description: Create user.
+      schema:
+         id: make order
+         properties:
+            foodId:
+              type: int
+              example: 1
+            userId:
+              type: int
+              example: 1
+
+responses:
+  201:
+    description: Order created.
+
+security:
+  - JWT:
+      description: Pass in jwt token.
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
