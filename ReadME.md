@@ -34,11 +34,12 @@ API documentation is a concise manual containing all the information required to
 Request|URL|Description
 ---|---|---
 **POST**|`/auth/signup`|Register User
-**DELETE**|`/auth/login`|Login User
+**POST**|`/auth/login`|Login User
 **GET**|`/orders`|Get all orders
 **GET**|`/orders/orderId`|Fetch a specific order by its ID
 **POST**|`/users/orders`|Place new order
 **GET**|`/users/orders`|Order history
 **PUT**|`/orders/orderId`|Update order status
+**DELETE**|`/orders/orderId`|Delete an order
 **GET**|`/menu`|Get available menu
 **POST**|`/menu`|Add a meal
