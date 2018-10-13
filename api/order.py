@@ -16,17 +16,17 @@ class myOrder:
                             type=int,
                             required=True,
                             help='Error: Must be an Integer')
-        parser.add_argument('userId',
-                            type=int,
+        parser.add_argument('username',
+                            type=str,
                             required=True,
                             help='Error: Must be an Integer')
         data = parser.parse_args()
 
         query = """
-            INSERT INTO orders(foodId, userId)
+            INSERT INTO orders(foodId, username)
             VALUES('{}','{}')
         """
-        self.database.cursor.execute(query.format(data['foodId'], data['userId']))
+        self.database.cursor.execute(query.format(data['foodId'], data['username']))
 
         return {'message': 'Your order has been received'}, 201
 
@@ -40,7 +40,7 @@ class myOrder:
             for item in row:
                 results.append({
                     'orderId':item[0],
-                    'userId':item[1],
+                    'username':item[1],
                     'foodId':item[2],
                     'status':item[3]
                     })
@@ -78,14 +78,14 @@ class myOrder:
 
     def get_order_history(self):
         """ retrieves the order history of a customer"""
-        query = "SELECT * FROM users INNER JOIN orders ON users.userId = orders.userId"
+        query = "SELECT * FROM users INNER JOIN orders ON users.username = orders.username"
         self.database.cursor.execute(query)
         row = self.database.cursor.fetchall()
         results = []
         if row:
             for item in row:
                 results.append({
-                    'userId':item[0],
+                    'username':item[0],
                     'name':item[1],
                     'foodId':item[5],
                     'status':item[7]

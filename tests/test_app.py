@@ -15,7 +15,7 @@ class AppTestCase(unittest.TestCase):
         self.database.create_menu_table()
         self.database.create_order_table()
         self.order = {
-            'orderId': 1, 'userId': 1, 'foodId': 1, 'status': 'pending'
+            'orderId': 1, 'username': 'joshua', 'foodId': 1, 'status': 'pending'
             }
         self.menu = {
             'foodId': 1, 'name': 'pizza', 'description': 'hawain',
