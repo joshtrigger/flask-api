@@ -29,7 +29,7 @@ class Database:
     def create_user_table(self):
         create_table = """CREATE TABLE IF NOT EXISTS users(
             userId SERIAL PRIMARY KEY,
-            username VARCHAR,
+            username VARCHAR UNIQUE,
             email VARCHAR,
             password VARCHAR)"""
         self.cursor.execute(create_table)
@@ -47,11 +47,11 @@ class Database:
     def create_order_table(self):
         create_table = """CREATE TABLE IF NOT EXISTS orders(
             orderId SERIAL PRIMARY KEY,
-            userId INTEGER NOT NULL,
+            username VARCHAR NOT NULL,
             foodId INTEGER NOT NULL,
             status VARCHAR DEFAULT 'Pending',
-            FOREIGN KEY (userId)
-                REFERENCES users (userId)
+            FOREIGN KEY (username)
+                REFERENCES users (username)
                 ON  DELETE CASCADE ON UPDATE CASCADE,
             FOREIGN KEY (foodId)
                 REFERENCES menu (foodId)
