@@ -19,7 +19,7 @@ class myOrder:
         parser.add_argument('username',
                             type=str,
                             required=True,
-                            help='Error: Must be an Integer')
+                            help='Error: Must be an String')
         data = parser.parse_args()
 
         query = """
