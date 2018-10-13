@@ -14,9 +14,9 @@ parameters:
             foodId:
               type: int
               example: 1
-            userId:
-              type: int
-              example: 1
+            username:
+              type: string
+              example: "joshua"
 
 responses:
   201:
