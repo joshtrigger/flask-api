@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from flasgger import Swagger, swag_from
 import jwt
 from functools import wraps
+from flask_cors import CORS
 from api.order import myOrder
 from api.user import User
 from api.menu import Menu
@@ -11,6 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'customerkey'
 app.config['ADMIN_KEY'] = 'adminkey'
 api = Api(app)
+CORS(app)
 
 swagger = Swagger(app, template={"info":{
     "title":"Fast Food API",
