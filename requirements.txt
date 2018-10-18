@@ -35,4 +35,12 @@ uwsgi
 Werkzeug==0.14.1
 wrapt==1.10.11
 psycopg2
-flasgger==0.8.0
+flasgger
+certifi
+chardet
+docopt
+Flask-Cors
+jsonschema
+mistune
+requests
+urllib3
