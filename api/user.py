@@ -59,7 +59,7 @@ class User:
                             help='Field cannot be blank')
 
         data = parser.parse_args()
-        
+
         if data['username'] == 'admin' and data['password'] == 'mynameisadmin':
             token = jwt.encode({
                 'username': data['username'],
@@ -68,6 +68,9 @@ class User:
                 }, 'adminkey')
             return {'message': 'welcome admin',
                     'token': token.decode('utf-8')}, 200
+
+        elif self.find_user_by_name(data['username']) is None or self.find_user_by_password is None:
+            return {'message':'Please Create an account'}, 400
 
         elif self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
             token = jwt.encode({
@@ -84,16 +87,25 @@ class User:
         query = "SELECT * FROM  users WHERE username = '{}'"
         self.database.cursor.execute(query.format(username))
         row = self.database.cursor.fetchone()
-        return row
+        if row:
+            return row
+        else:
+            return None
 
     def find_user_by_email(self, email):
         query = "SELECT * FROM  users WHERE email = '{}'"
         self.database.cursor.execute(query.format(email))
         row = self.database.cursor.fetchone()
-        return row
+        if row:
+            return row
+        else:
+            return None
 
     def find_user_by_password(self, password):
         query = "SELECT * FROM  users WHERE password = '{}'"
         self.database.cursor.execute(query.format(password))
         row = self.database.cursor.fetchone()
-        return row
+        if row:
+            return row
+        else:
+            return None
