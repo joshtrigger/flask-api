@@ -15,7 +15,7 @@ class Database:
                 postgresdb = 'd3djsqfdf0nvvn'
                 Host="ec2-54-235-90-0.compute-1.amazonaws.com"
                 User="rtswceertyxucm"
-                Password="378faf21e6387f2289a785b277a91bd0f8144f9b349cdf65122a38490cdf5e06"
+                Password= "378faf21e6387f2289a785b277a91bd0f8144f9b349cdf65122a38490cdf5e06"
 
             self.connection = psycopg2.connect(
                     database=postgresdb, host=Host, user=User,
