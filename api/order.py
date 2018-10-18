@@ -1,5 +1,6 @@
 from api.views import request, reqparse, abort, jsonify
 from mydatabase import Database
+import jwt
 
 
 class myOrder:
@@ -11,22 +12,31 @@ class myOrder:
 
     def place_new_order(self):
         """places a new order [POST] method"""
+        
+        token = request.headers.get('Authorization')
+
+        if not token:
+            return {'message':'Token is missing'}
+        elif token[0] == 'B':
+            payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
+        else:
+            payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
+
+        customer = payload['username']
+
         parser = reqparse.RequestParser()
         parser.add_argument('foodId',
                             type=int,
                             required=True,
                             help='Error: Must be an Integer')
-        parser.add_argument('username',
-                            type=str,
-                            required=True,
-                            help='Error: Must be an String')
-        data = parser.parse_args()
 
+        data = parser.parse_args() 
+        
         query = """
             INSERT INTO orders(foodId, username)
             VALUES('{}','{}')
         """
-        self.database.cursor.execute(query.format(data['foodId'], data['username']))
+        self.database.cursor.execute(query.format(data['foodId'], customer))
 
         return {'message': 'Your order has been received'}, 201
 

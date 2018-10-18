@@ -59,9 +59,8 @@ class User:
                             help='Field cannot be blank')
 
         data = parser.parse_args()
-        query = "SELECT * FROM users WHERE username = '{}'"
-        self.database.cursor.execute(query.format(data['username']))
-        if self.find_user_by_name(data['username']) and self.find_user_by_password(data['password']):
+        
+        if self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
             token = jwt.encode({
                 'username': data['username'],
                 'exp':
@@ -98,4 +97,3 @@ class User:
         self.database.cursor.execute(query.format(password))
         row = self.database.cursor.fetchone()
         return row
- 
