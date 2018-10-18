@@ -60,22 +60,22 @@ class User:
 
         data = parser.parse_args()
         
-        if self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
-            token = jwt.encode({
-                'username': data['username'],
-                'exp':
-                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-                }, 'customerkey')
-            return {'message': 'You are successfully logged in',
-                    'token': token.decode('utf-8')}, 200
-        
-        elif data['username'] == 'admin' and data['password'] == 'mynameisadmin':
+        if data['username'] == 'admin' and data['password'] == 'mynameisadmin':
             token = jwt.encode({
                 'username': data['username'],
                 'exp':
                 datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
                 }, 'adminkey')
             return {'message': 'welcome admin',
+                    'token': token.decode('utf-8')}, 200
+
+        elif self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
+            token = jwt.encode({
+                'username': data['username'],
+                'exp':
+                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                }, 'customerkey')
+            return {'message': 'You are successfully logged in',
                     'token': token.decode('utf-8')}, 200
 
         return {'message': 'username or password is incorrect'}, 400
