@@ -65,8 +65,14 @@ class myOrder:
         self.database.cursor.execute(query.format(orderId))
         order = self.database.cursor.fetchone()
         if order:
-            return order, 200
-        return {'message': 'The order you requested does not exist'}, 404
+            return ({
+                'orderId':order[0],
+                'username':order[1],
+                'foodId':order[2],
+                'status':order[3]
+            }), 200
+        else:
+            return {'message': 'The order you requested does not exist'}, 404
 
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
