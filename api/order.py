@@ -74,7 +74,7 @@ class myOrder:
         parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
         data = parser.parse_args()
         status = data['status']
-        if status.isspace():
+        if status.isspace() or (' ' in status):
             return {'message': 'Field cannot be blank'}, 400
         query = "UPDATE orders SET status = '{}' WHERE orderId = '{}'"
         self.database.cursor.execute(query.format(status, orderId))
