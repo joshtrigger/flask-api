@@ -116,7 +116,7 @@ class UsersLogin(Resource):
 
 class FoodItem(Resource):
     """Gets the menu"""
-    @customer_token
+    # @customer_token
     @swag_from('../Docs/get_menu.yml', methods=['GET'])
     def get(self):
         return my_menu.get_all_items()

@@ -20,7 +20,7 @@ class myOrder:
         elif token[0] == 'B':
             payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
         else:
-            payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
+            payload = jwt.decode(token.encode('utf-8'), 'customerkey')
 
         customer = payload['username']
 
@@ -88,16 +88,30 @@ class myOrder:
 
     def get_order_history(self):
         """ retrieves the order history of a customer"""
-        query = "SELECT * FROM users INNER JOIN orders ON users.username = orders.username"
-        self.database.cursor.execute(query)
+        query = "SELECT * FROM orders WHERE username = '{}'"
+
+        token = request.headers.get('Authorization')
+
+        if not token:
+            return {'message':'Token is missing'}
+        elif token[0] == 'B':
+            payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
+        else:
+            payload = jwt.decode(token.encode('utf-8'), 'customerkey')
+
+        customer = payload['username']
+
+        self.database.cursor.execute(query.format(customer))
         row = self.database.cursor.fetchall()
         results = []
         if row:
             for item in row:
                 results.append({
-                    'username':item[0],
-                    'name':item[1],
-                    'foodId':item[5],
-                    'status':item[7]
+                    'orderId':item[0],
+                    'username':item[1],
+                    'foodId':item[2],
+                    'status':item[3]
                     })
             return jsonify(results)
+        else:
+            return {'message': 'No Previous Orders'}
