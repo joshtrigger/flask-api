@@ -64,7 +64,7 @@ class User:
             token = jwt.encode({
                 'username': data['username'],
                 'exp':
-                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
                 }, 'adminkey')
             return {'message': 'welcome admin',
                     'token': token.decode('utf-8')}, 200
@@ -76,7 +76,7 @@ class User:
             token = jwt.encode({
                 'username': data['username'],
                 'exp':
-                datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
                 }, 'customerkey')
             return {'message': 'You are successfully logged in',
                     'token': token.decode('utf-8')}, 200
