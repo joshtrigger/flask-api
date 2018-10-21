@@ -49,7 +49,7 @@ class Database:
             orderId SERIAL PRIMARY KEY,
             username VARCHAR NOT NULL,
             foodId INTEGER NOT NULL,
-            status VARCHAR DEFAULT 'Pending',
+            status VARCHAR DEFAULT 'New',
             FOREIGN KEY (username)
                 REFERENCES users (username)
                 ON  DELETE CASCADE ON UPDATE CASCADE,

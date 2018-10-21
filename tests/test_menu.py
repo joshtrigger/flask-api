@@ -43,7 +43,7 @@ class AppTestCase(unittest.TestCase):
     def test_get_all_items(self):
         """test api to return the menu without token"""
         response = self.tester.get('/api/v1/menu', data=self.menu)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(200, response.status_code)
 
     def test_get_all_items_token(self):
         """test api to return the menu without token"""
