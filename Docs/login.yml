@@ -1,7 +1,7 @@
 Signs in user
 ---
 tags:
-    - Authentication
+    - Users
 parameters:
     - in: body
       name: body
