@@ -77,7 +77,10 @@ class myOrder:
     def update_order_status(self, orderId):
         """updates the order status [PUT] method"""
         parser = reqparse.RequestParser()
-        parser.add_argument('status', type=str, required=True, help='Error: Must be a string')
+        parser.add_argument('status',
+                            type=str,
+                            required=True,
+                            help='Error: Must be a string')
         data = parser.parse_args()
         status = data['status']
         if status.isspace() or (' ' in status):

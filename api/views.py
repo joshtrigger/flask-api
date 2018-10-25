@@ -114,9 +114,8 @@ class UsersLogin(Resource):
         return customer.login_user()
 
 
-class FoodItem(Resource):
+class FoodItems(Resource):
     """Gets the menu"""
-    # @customer_token
     @swag_from('../Docs/get_menu.yml', methods=['GET'])
     def get(self):
         return my_menu.get_all_items()
@@ -127,6 +126,10 @@ class FoodItem(Resource):
     def post(self):
         return my_menu.create_item()
 
+class FoodItem(Resource):
+    """Deletes an item on the menu"""
+    def delete(self, foodId):
+        return my_menu.delete_item(foodId)
 
 @app.errorhandler(404)
 def notfound(errorhandler):
@@ -142,4 +145,5 @@ api.add_resource(OrderHistory, '/api/v1/users/orders')
 api.add_resource(Order, '/api/v1/orders/<int:orderId>')
 api.add_resource(Users, '/api/v1/auth/signup')
 api.add_resource(UsersLogin, '/api/v1/auth/login')
-api.add_resource(FoodItem, '/api/v1/menu', '/api/v1/menu')
+api.add_resource(FoodItems, '/api/v1/menu')
+api.add_resource(FoodItem, '/api/v1/menu/<int:foodId>')
