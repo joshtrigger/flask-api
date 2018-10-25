@@ -59,20 +59,6 @@ class Menu:
         self.database.cursor.execute(query.format(foodId))
         return {'message': 'Item has been deleted'}, 200
 
-    def edit_item(self, foodId):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name',
-                            type=str,
-                            required=False)
-        parser.add_argument('description',
-                            type=str,
-                            required=False)
-        parser.add_argument('price',
-                            type=str,
-                            required=False)
-        data = parser.parse_args()
-        pass
-
     def find_menu_by_name(self, name):
         query = "SELECT * FROM  menu WHERE name = '{}'"
         self.database.cursor.execute(query.format(name))

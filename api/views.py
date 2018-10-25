@@ -128,6 +128,8 @@ class FoodItems(Resource):
 
 class FoodItem(Resource):
     """Deletes an item on the menu"""
+    @admin_token
+    @swag_from('../Docs/delete_item.yml', methods=['DELETE'])
     def delete(self, foodId):
         return my_menu.delete_item(foodId)
 
