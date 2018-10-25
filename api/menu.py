@@ -52,7 +52,7 @@ class Menu:
             return jsonify(results)
         else:
             item = None
-            return {'message': 'Menu is unavailable'}
+            return {'message': 'Menu is unavailable'}, 404
 
     def delete_item(self, foodId):
         query = "DELETE FROM menu WHERE foodId = {}"
