@@ -41,13 +41,27 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(200, response.status_code)
 
     def test_get_all_items(self):
-        """test api to return the menu without token"""
+        """test api to return the menu"""
+        response = self.tester.post('/api/v1/menu',
+                                    data=self.menu,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
         response = self.tester.get('/api/v1/menu', data=self.menu)
         self.assertEqual(200, response.status_code)
 
-    def test_get_all_items_token(self):
-        """test api to return the menu without token"""
-        response = self.tester.get('/api/v1/menu',
-                                   data=self.menu,
-                                   headers=dict(Authorization='Bearer ' + GetToken.get_user_token()))
+    def test_delete_item(self):
+        """without token"""
+        response = self.tester.post('/api/v1/menu',
+                                    data=self.menu,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+        response = self.tester.delete('/api/v1/menu/1', data=self.menu)
+        self.assertEqual(403, response.status_code)
+
+    def test_delete_item_token(self):
+        """with token"""
+        response = self.tester.post('/api/v1/menu',
+                                    data=self.menu,
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+        response = self.tester.delete('/api/v1/menu/1',
+                                      data=self.menu,
+                                      headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
         self.assertEqual(200, response.status_code)
