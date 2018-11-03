@@ -10,19 +10,21 @@ class myOrder:
         self.database = Database()
         self.database.create_order_table()
 
-    def place_new_order(self):
-        """places a new order [POST] method"""
-        
+    @staticmethod
+    def decoder():
         token = request.headers.get('Authorization')
 
         if not token:
             return {'message':'Token is missing'}
         elif token[0] == 'B':
             payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
-        else:
-            payload = jwt.decode(token.encode('utf-8'), 'customerkey')
+            
+        return payload['username']
 
-        customer = payload['username']
+    def place_new_order(self):
+        """places a new order [POST] method"""
+
+        customer = self.decoder()
 
         parser = reqparse.RequestParser()
         parser.add_argument('foodId',
@@ -98,16 +100,7 @@ class myOrder:
         """ retrieves the order history of a customer"""
         query = "SELECT * FROM orders WHERE username = '{}'"
 
-        token = request.headers.get('Authorization')
-
-        if not token:
-            return {'message':'Token is missing'}
-        elif token[0] == 'B':
-            payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
-        else:
-            payload = jwt.decode(token.encode('utf-8'), 'customerkey')
-
-        customer = payload['username']
+        customer = self.decoder()
 
         self.database.cursor.execute(query.format(customer))
         row = self.database.cursor.fetchall()
