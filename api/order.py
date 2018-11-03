@@ -56,7 +56,6 @@ class myOrder:
                     })
             return jsonify(results)
         else:
-            item = None
             return {'message': 'No orders found'}, 404
     
     def fetch_specific_order(self, orderId):
@@ -87,7 +86,7 @@ class myOrder:
             return {'message': 'Field cannot be blank'}, 400
         query = "UPDATE orders SET status = '{}' WHERE orderId = '{}'"
         self.database.cursor.execute(query.format(status, orderId))
-        return {'message': 'Order status has been updated'}
+        return {'message': 'Order status has been updated'}, 200
 
     def delete_order(self, orderId):
         """deletes an order [DELETE] method"""
@@ -123,4 +122,4 @@ class myOrder:
                     })
             return jsonify(results)
         else:
-            return {'message': 'No Previous Orders'}
+            return {'message': 'No Previous Orders'}, 404
