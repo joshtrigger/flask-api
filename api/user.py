@@ -70,7 +70,7 @@ class User:
                     'token': token.decode('utf-8')}, 200
 
         elif self.find_user_by_name(data['username']) is None or self.find_user_by_password is None:
-            return {'message':'Please Create an account'}, 400
+            return {'message':'Please Create an account'}, 401
 
         elif self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
             token = jwt.encode({
@@ -81,7 +81,7 @@ class User:
             return {'message': 'You are successfully logged in',
                     'token': token.decode('utf-8')}, 200
 
-        return {'message': 'username or password is incorrect'}, 400
+        return {'message': 'username or password is incorrect'}, 401
 
     def find_user_by_name(self, username):
         query = "SELECT * FROM  users WHERE username = '{}'"
