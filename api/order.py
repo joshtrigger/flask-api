@@ -100,9 +100,9 @@ class myOrder:
         """ retrieves the order history of a customer"""
         query = "SELECT * FROM orders WHERE username = '{}'"
 
-        customer = self.decoder()
+        user = self.decoder()
 
-        self.database.cursor.execute(query.format(customer))
+        self.database.cursor.execute(query.format(user))
         row = self.database.cursor.fetchall()
         results = []
         if row:
