@@ -51,7 +51,6 @@ class Menu:
                     })
             return jsonify(results)
         else:
-            item = None
             return {'message': 'Menu is unavailable'}, 404
 
     def delete_item(self, foodId):
@@ -74,5 +73,4 @@ class Menu:
         row = self.database.cursor.fetchone()
         if row:
             return row
-        else:
-            return None
+        

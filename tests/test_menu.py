@@ -32,13 +32,22 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(403, response.status_code)
         self.assertIn(b'{"message": "Token is missing"}', response.data)
 
-    def test_create_item_token(self):
         """Tests api to add item to menu with token"""
         
         response = self.tester.post('/api/v1/menu',
                                     data=self.menu,
                                     headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
         self.assertEqual(200, response.status_code)
+
+        """test item conflict"""
+        response = self.tester.post('/api/v1/menu',
+                                    data={
+                                       'name': 'pizza', 'description': 'hawain',
+                                        'price': 25000 
+                                    },
+                                    headers=dict(Authorization='Bearer ' + GetToken.get_admin_token()))
+        self.assertEqual(409, response.status_code)
+        self.assertIn('Item already exists', str(response.data))
 
     def test_get_all_items(self):
         """test api to return the menu"""
@@ -48,6 +57,12 @@ class AppTestCase(unittest.TestCase):
         response = self.tester.get('/api/v1/menu', data=self.menu)
         self.assertEqual(200, response.status_code)
 
+    def test_no_menu(self):
+        """test for unavailable menu"""
+        response = self.tester.get('/api/v1/menu', data={})
+        self.assertEqual(404, response.status_code)
+        self.assertIn('Menu is unavailable', str(response.data))
+
     def test_delete_item(self):
         """without token"""
         response = self.tester.post('/api/v1/menu',
@@ -56,7 +71,6 @@ class AppTestCase(unittest.TestCase):
         response = self.tester.delete('/api/v1/menu/1', data=self.menu)
         self.assertEqual(403, response.status_code)
 
-    def test_delete_item_token(self):
         """with token"""
         response = self.tester.post('/api/v1/menu',
                                     data=self.menu,
