@@ -43,3 +43,4 @@ Request|URL|Description
 **DELETE**|`/orders/orderId`|Delete an order
 **GET**|`/menu`|Get available menu
 **POST**|`/menu`|Add a meal
+**DELETE**|`/menu/foodId`|Delete an item on menu
