@@ -15,10 +15,10 @@ class myOrder:
         token = request.headers.get('Authorization')
 
         if not token:
-            return {'message':'Token is missing'}
+            return {'message': 'Token is missing'}
         elif token[0] == 'B':
             payload = jwt.decode(token[7:].encode('utf-8'), 'customerkey')
-            
+
         return payload['username']
 
     def place_new_order(self):
@@ -32,8 +32,8 @@ class myOrder:
                             required=True,
                             help='Error: Must be an Integer')
 
-        data = parser.parse_args() 
-        
+        data = parser.parse_args()
+
         query = """
             INSERT INTO orders(foodId, username)
             VALUES('{}','{}')
@@ -49,17 +49,10 @@ class myOrder:
         row = self.database.cursor.fetchall()
         results = []
         if row:
-            for item in row:
-                results.append({
-                    'orderId':item[0],
-                    'username':item[1],
-                    'foodId':item[2],
-                    'status':item[3]
-                    })
-            return jsonify(results)
+            return self.iterator(row, results)
         else:
             return {'message': 'No orders found'}, 404
-    
+
     def fetch_specific_order(self, orderId):
         """fetches a specific order [GET] method"""
         query = "SELECT * FROM orders WHERE orderId ='{}'"
@@ -67,10 +60,10 @@ class myOrder:
         order = self.database.cursor.fetchone()
         if order:
             return jsonify({
-                'orderId':order[0],
-                'username':order[1],
-                'foodId':order[2],
-                'status':order[3]
+                'orderId': order[0],
+                'username': order[1],
+                'foodId': order[2],
+                'status': order[3]
             })
         else:
             return {'message': 'The order you requested does not exist'}, 404
@@ -106,13 +99,16 @@ class myOrder:
         row = self.database.cursor.fetchall()
         results = []
         if row:
-            for item in row:
-                results.append({
-                    'orderId':item[0],
-                    'username':item[1],
-                    'foodId':item[2],
-                    'status':item[3]
-                    })
-            return jsonify(results)
+            return self.iterator(row, results)
         else:
             return {'message': 'No Previous Orders'}, 404
+
+    def iterator(self, row, results):
+        for item in row:
+            results.append({
+                'orderId': item[0],
+                'username': item[1],
+                'foodId': item[2],
+                'status': item[3]
+            })
+        return jsonify(results)

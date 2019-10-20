@@ -1,12 +1,13 @@
 from flask import Flask, request, abort, jsonify
 from flask_restful import Resource, Api, reqparse
 from flasgger import Swagger, swag_from
-import jwt
 from functools import wraps
 from flask_cors import CORS
 from api.order import myOrder
 from api.user import User
 from api.menu import Menu
+
+import jwt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'customerkey'

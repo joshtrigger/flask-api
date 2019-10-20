@@ -1,11 +1,13 @@
 from api.views import request, reqparse, jsonify
 from mydatabase import Database
+from helper import Helper
 
 
 class Menu:
     def __init__(self):
         self.database = Database()
         self.database.create_menu_table()
+        self.helper = Helper()
 
     def create_item(self):
         parser = reqparse.RequestParser()
@@ -32,7 +34,7 @@ class Menu:
             RETURNING foodId, name, description, price")
 
         self.database.cursor.execute(query.format(data['name'],
-            data['description'], data['price']))
+                                                  data['description'], data['price']))
 
         return {'message': 'Item successfully added'}, 200
 
@@ -44,11 +46,11 @@ class Menu:
         if row:
             for item in row:
                 results.append({
-                    'foodId':item[0],
-                    'name':item[1],
-                    'description':item[2],
-                    'price':item[3]
-                    })
+                    'foodId': item[0],
+                    'name': item[1],
+                    'description': item[2],
+                    'price': item[3]
+                })
             return jsonify(results)
         else:
             return {'message': 'Menu is unavailable'}, 404
@@ -59,18 +61,7 @@ class Menu:
         return {'message': 'Item has been deleted'}, 200
 
     def find_menu_by_name(self, name):
-        query = "SELECT * FROM  menu WHERE name = '{}'"
-        self.database.cursor.execute(query.format(name))
-        row = self.database.cursor.fetchone()
-        if row:
-            return row
-        else:
-            return None
+        return self.helper.query_table('menu', 'name', name)
 
     def find_menu_by_description(self, description):
-        query = "SELECT * FROM  menu WHERE description = '{}'"
-        self.database.cursor.execute(query.format(description))
-        row = self.database.cursor.fetchone()
-        if row:
-            return row
-        
+        return self.helper.query_table('menu', 'description', description)
