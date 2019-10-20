@@ -1,30 +1,32 @@
 from api.views import request, reqparse
 import jwt, datetime, re
 from mydatabase import Database
+from helper import Helper
 
 
 class User:
     def __init__(self):
         self.database = Database()
         self.database.create_user_table()
+        self.helper=Helper()
+        self.parser = reqparse.RequestParser()
 
     def create_user(self):
         """create a user account [POST]"""
-        parser = reqparse.RequestParser()
-        parser.add_argument('username',
+        self.parser.add_argument('username',
                             type=str,
                             required=True,
                             help='Field cannot be blank')
-        parser.add_argument('email',
+        self.parser.add_argument('email',
                             type=str,
                             required=True,
                             help='Field cannot be blank')
-        parser.add_argument('password',
+        self.parser.add_argument('password',
                             type=str,
                             required=True,
                             help='Field cannot be blank')
 
-        data = parser.parse_args()
+        data = self.parser.parse_args()
 
         specialCharacters = ['$','#','@','!','*']
 
@@ -48,17 +50,16 @@ class User:
 
     def login_user(self):
         """user login [POST]"""
-        parser = reqparse.RequestParser()
-        parser.add_argument('username',
+        self.parser.add_argument('username',
                             type=str,
                             required=True,
                             help='Field cannot be blank')
-        parser.add_argument('password',
+        self.parser.add_argument('password',
                             type=str,
                             required=True,
                             help='Field cannot be blank')
 
-        data = parser.parse_args()
+        data = self.parser.parse_args()
 
         if data['username'] == 'admin' and data['password'] == 'mynameisadmin':
             token = jwt.encode({
@@ -69,10 +70,10 @@ class User:
             return {'message': 'welcome admin',
                     'token': token.decode('utf-8')}, 200
 
-        elif self.find_user_by_name(data['username']) is None or self.find_user_by_password is None:
+        elif not self.find_user_by_name(data['username']):
             return {'message':'Please Create an account'}, 401
 
-        elif self.find_user_by_name(data['username']) == self.find_user_by_password(data['password']):
+        elif self.find_user_by_name(data['username']) and self.find_user_by_password(data['password']):
             token = jwt.encode({
                 'username': data['username'],
                 'exp':
@@ -84,28 +85,10 @@ class User:
         return {'message': 'username or password is incorrect'}, 401
 
     def find_user_by_name(self, username):
-        query = "SELECT * FROM  users WHERE username = '{}'"
-        self.database.cursor.execute(query.format(username))
-        row = self.database.cursor.fetchone()
-        if row:
-            return row
-        else:
-            return None
+        return self.helper.query_table('users','username',username)
 
     def find_user_by_email(self, email):
-        query = "SELECT * FROM  users WHERE email = '{}'"
-        self.database.cursor.execute(query.format(email))
-        row = self.database.cursor.fetchone()
-        if row:
-            return row
-        else:
-            return None
+        return self.helper.query_table('users','email',email)
 
-    def find_user_by_password(self, password):
-        query = "SELECT * FROM  users WHERE password = '{}'"
-        self.database.cursor.execute(query.format(password))
-        row = self.database.cursor.fetchone()
-        if row:
-            return row
-        else:
-            return None
+    def find_user_by_password(self,password):
+        return self.helper.query_table('users','password',password)

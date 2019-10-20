@@ -8,7 +8,7 @@ class Database:
         try:
             postgresdb = 'fastfood'
             Host="localhost"
-            User="postgres"
+            User="joshdan"
             Password="mypostgres"
 
             if os.getenv('env') == "testing":

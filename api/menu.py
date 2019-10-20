@@ -73,4 +73,6 @@ class Menu:
         row = self.database.cursor.fetchone()
         if row:
             return row
+        else:
+            return None
         
